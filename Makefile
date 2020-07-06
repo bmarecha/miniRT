@@ -1,20 +1,31 @@
 
-SRCS	=	miniRT.c
+SRCS	=	gnl/get_next_line.c \
+			gnl/get_next_line_utils.c \
+			minifiles/miniRT.c \
+			minifiles/test.c
 
 OBJS	=	${SRCS:.c=.o}
 
 NAME	=	miniRT
 
+MLX		=	libmlx.dylib
+
+MLXDIR = minilibx_mms_20200219/
+
 .c.o	:
 	gcc -Wall -Werror -Wextra -Iincludes/ -c $< -o ${<:.c=.o}
 
-$(NAME)	:	${OBJS}
-	gcc -o ${NAME} ${OBJS}
+all     :   ${MLX} ${NAME}
 
-all		:	${NAME}
+${MLX}	:
+	make -C ${MLXDIR}
+
+$(NAME)	:	${OBJS}
+	gcc ${OBJS} -I${MLXDIR} -L${MLXDIR} -lmlx -o ${NAME}
 
 clean	:
-	rm -f ${OBJS} 
+	rm -f ${OBJS}
+	make clean -C ${MLXDIR}
 
 fclean	:	clean
 	rm -f ${NAME}
