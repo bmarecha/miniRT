@@ -13,6 +13,11 @@
 #ifndef MINIRT_H
 # define  MINIRT_H
 # include <stdio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 typedef struct	s_point
 {
@@ -46,6 +51,18 @@ typedef	struct	s_scene
 	t_camera *cams;
 }				t_scene;
 
-void printtest(void);
+char			**ft_split(char *str, char *charset);
+int				ft_strcmp(char *a, char *b);
+int				add_sphere(char **infos, t_scene *scene);
+int				add_plane(char **infos, t_scene *scene);
+int				add_square(char **infos, t_scene *scene);
+int				add_cylindre(char **infos, t_scene *scene);
+int				add_triangle(char **infos, t_scene *scene);
+int				add_camera(char **infos, t_scene *scene);
+int				add_light(char **infos, t_scene *scene);
+int				add_ambiantlight(char **infos, t_scene *scene);
+int				add_sizes(char **infos, t_scene *scene);
+int				add_colors(int r, int g, int b, t_colors *colors);
+
 
 #endif

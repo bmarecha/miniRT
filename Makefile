@@ -2,7 +2,9 @@
 SRCS	=	gnl/get_next_line.c \
 			gnl/get_next_line_utils.c \
 			minifiles/miniRT.c \
-			minifiles/test.c
+			minifiles/ft_split.c \
+			minifiles/addforms.c \
+			minifiles/addambiant.c
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -15,13 +17,14 @@ MLXDIR = minilibx_mms_20200219/
 .c.o	:
 	gcc -Wall -Werror -Wextra -Iincludes/ -c $< -o ${<:.c=.o}
 
-all     :   ${MLX} ${NAME}
+all     :   ${NAME} #${MLX} ${NAME}
 
 ${MLX}	:
 	make -C ${MLXDIR}
 
 $(NAME)	:	${OBJS}
-	gcc ${OBJS} -I${MLXDIR} -L${MLXDIR} -lmlx -o ${NAME}
+	gcc ${OBJS} -o ${NAME}
+	#gcc ${OBJS} -I${MLXDIR} -L${MLXDIR} -lmlx -o ${NAME}
 
 clean	:
 	rm -f ${OBJS}
