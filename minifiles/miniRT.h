@@ -21,34 +21,86 @@
 
 typedef struct	s_point
 {
-	float x;
-	float y;
-	float z;
+	float		x;
+	float		y;
+	float		z;
 }				t_point;
 
 typedef	struct s_colors
 {
-	int r;
-	int g;
-	int b;
+	int			r;
+	int			g;
+	int			b;
 }				t_colors;
 
 typedef struct	s_camera
 {
-	t_point place;
-	t_point view;
+	t_point 	place;
+	t_point 	view;
 
-	int fov;
+	int			fov;
 }				t_camera;
+
+typedef	struct	s_light
+{
+	t_point		place;
+	t_colors	color;
+	float		rate;
+}				t_light;
+
+typedef	struct	s_sphere
+{
+	t_point		center;
+	float		diameter;
+	t_colors	color;
+}				t_sphere;
+
+typedef	struct	s_plane
+{
+	t_point		start;
+	t_point		way;
+	t_colors	color;
+}				t_plane;
+
+typedef	struct	s_square
+{
+	t_point		start;
+	t_point		way;
+	float		height;
+	t_colors	color;
+}				t_square;
+
+typedef	struct	s_cylindre
+{
+	t_point		start;
+	t_point		way;
+	float		diameter;
+	float		height;
+	t_colors	color;
+}				t_cylindre;
+
+typedef	struct	s_triangle
+{
+	t_point		first;
+	t_point		second;
+	t_point		third;
+	t_colors	color;
+}				t_triangle;
 
 typedef	struct	s_scene
 {
-	int xsize;
-	int ysize;
-	float ambiantr;
-	t_colors ambiantc;
+	int			xsize;
+	int			ysize;
+	float		ambiantr;
+	t_colors	ambiantc;
 
-	t_camera *cams;
+	t_camera	*cams;
+	t_light		*lights;
+	t_sphere	*spheres;
+	t_plane		*planes;
+	t_square	*squares;
+	t_cylindre	*cylindres;
+	t_triangle	*triangles;
 }				t_scene;
 
 char			**ft_split(char *str, char *charset);
