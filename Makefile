@@ -4,7 +4,8 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/miniRT.c \
 			minifiles/ft_split.c \
 			minifiles/addforms.c \
-			minifiles/addambiant.c
+			minifiles/addambiant.c \
+			minifiles/utilsRT.c
 
 OBJS	=	${SRCS:.c=.o}
 

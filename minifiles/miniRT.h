@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:27:17 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/06 18:55:38 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/09 17:05:36 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ typedef	struct	s_scene
 	float		ambiantr;
 	t_colors	ambiantc;
 
-	t_camera	*cams;
-	t_light		*lights;
-	t_sphere	*spheres;
-	t_plane		*planes;
-	t_square	*squares;
-	t_cylindre	*cylindres;
-	t_triangle	*triangles;
+	t_camera	**cams;
+	t_light		**lights;
+	t_sphere	**spheres;
+	t_plane		**planes;
+	t_square	**squares;
+	t_cylindre	**cylindres;
+	t_triangle	**triangles;
 }				t_scene;
 
 char			**ft_split(char *str, char *charset);
@@ -115,6 +115,7 @@ int				add_light(char **infos, t_scene *scene);
 int				add_ambiantlight(char **infos, t_scene *scene);
 int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
-
+int				array_length(t_camera **array);
+//void			*array_add(void **array, void *cell);
 
 #endif

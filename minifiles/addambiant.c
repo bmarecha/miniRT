@@ -42,11 +42,26 @@ int			add_light(char **infos, t_scene *scene)
 
 int			add_camera(char **infos, t_scene *scene)
 {
+	t_camera	**newarray;
+	int			i;
+
+	i = -1;
 	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
 		|| !infos[6] || !infos[7] || infos[8])
 		return (-1);
-	if (!scene)
+	if (!(newarray = malloc(sizeof(t_camera *) * (array_length(scene->cams) + 2))))
 		return (-1);
+	/*printf("%d", array_length(scene->cams));
+	if (array_length(scene->cams))
+	{
+		while	(scene->cams[++i])
+			newarray[i] = scene->cams[i];
+		//free(scene->cams);
+	}
+	newarray[i] = malloc(sizeof(t_camera));
+	newarray[i++]->fov = atoi(infos[7]);
+	newarray[i] = 0;*/
+	scene->cams = newarray;
 	return (0);
 }
 

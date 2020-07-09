@@ -10,7 +10,7 @@ int add_sphere(char **infos, t_scene *scene)
 	t_sphere	*new;
 	if (!(new = malloc(sizeof(t_sphere))))
 		return (-1);
-	if (addcolor(infos[5], infos[6], infos[7], &(new->color) == -1)
+	if (add_colors(atoi(infos[5]), atoi(infos[6]), atoi(infos[7]), &(new->color)) == -1)
 		return (-1);
 	return (0);
 }
