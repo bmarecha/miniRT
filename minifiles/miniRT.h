@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:27:17 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 14:36:38 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:45:10 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "libft.h"
 
 typedef struct	s_point
 {
@@ -103,7 +104,7 @@ typedef	struct	s_scene
 	t_triangle	**triangles;
 }				t_scene;
 
-char			**ft_split(char *str, char *charset);
+char			**mini_split(char *str, char *charset);
 int				ft_strcmp(char *a, char *b);
 int				add_sphere(char **infos, t_scene *scene);
 int				add_plane(char **infos, t_scene *scene);

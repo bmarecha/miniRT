@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 18:10:16 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 14:36:35 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:21:02 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		read_file(int fd, t_scene *scene)
 	while ((res = get_next_line(fd, line)) == 1)
 	{
 		printf("[%d] ||| %s\n", res, *line);
-		infos = ft_split(*line, "\n\t\v ,");
+		infos = mini_split(*line, "\n\t\v ,");
 		if (read_line(infos, scene) == -1)
 		{
 			free(*line);
@@ -117,5 +117,5 @@ int		main(int argc, char **argv)
 		free(scene);
 	}
 	else
-		printf("Map missing");
+		printf("Map missing\n%f", ft_atof("423"));
 }

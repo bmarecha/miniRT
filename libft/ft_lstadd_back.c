@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 14:07:36 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:41:01 by bmarecha         ###   ########.fr       */
+/*   Created: 2019/11/23 15:05:49 by bmarecha          #+#    #+#             */
+/*   Updated: 2019/11/23 15:40:34 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+#include "libft.h"
 
-int		get_next_line(int fd, char **line);
-int		gnl_strrchr(char *str, char c);
-char	*ft_stradd(char *dest, const char *src);
-char	*ft_resetto(char *str, char c);
-char	*ft_cpyto(char *src, char c);
+void	ft_lstadd_back(t_list **alst, t_list *new)
+{
+	t_list	*p;
 
-#endif
+	if (alst == NULL || new == NULL)
+		return ;
+	if (*alst == NULL)
+	{
+		*alst = new;
+		return ;
+	}
+	p = *alst;
+	while (p->next != 0)
+		p = p->next;
+	p->next = new;
+}

@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 14:07:36 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:41:01 by bmarecha         ###   ########.fr       */
+/*   Created: 2019/08/07 14:50:39 by bmarecha          #+#    #+#             */
+/*   Updated: 2019/11/27 15:52:44 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+#include "libft.h"
 
-int		get_next_line(int fd, char **line);
-int		gnl_strrchr(char *str, char c);
-char	*ft_stradd(char *dest, const char *src);
-char	*ft_resetto(char *str, char c);
-char	*ft_cpyto(char *src, char c);
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
+{
+	unsigned long i;
+	unsigned long b;
+	unsigned long l;
 
-#endif
+	i = 0;
+	b = 0;
+	while (dest[i])
+		i++;
+	l = 0;
+	while (src[l])
+		l++;
+	if (size <= i)
+		l += size;
+	else
+		l += i;
+	while (src[b] && i + b + 1 < size)
+	{
+		dest[i + b] = src[b];
+		b++;
+	}
+	dest[i + b] = '\0';
+	return (l);
+}

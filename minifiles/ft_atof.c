@@ -1,27 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 14:07:36 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:41:01 by bmarecha         ###   ########.fr       */
+/*   Created: 2020/07/10 16:04:44 by bmarecha          #+#    #+#             */
+/*   Updated: 2020/07/10 16:18:59 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+float		ft_atof(char *str)
+{
+	float	res;
+	int		coma;
+	int		i;
 
-int		get_next_line(int fd, char **line);
-int		gnl_strrchr(char *str, char c);
-char	*ft_stradd(char *dest, const char *src);
-char	*ft_resetto(char *str, char c);
-char	*ft_cpyto(char *src, char c);
-
-#endif
+	i = 6;
+	coma = 0;
+	res = 0;
+	while (i && *str)
+	{
+		if (coma > 0)
+			if (coma++ && *str == '.')
+				break;
+		else if (*str == '.')
+			coma++;
+		else if (*str < 48 || *str > 57)
+			break;
+		else
+		{
+			i--;
+			res = res * 10 + str - 48;
+		}
+		str++;
+	}
+	return res;
+}
+/*
+143
+456.12
+78654.3
+45.645.1
+0..45
+0052.12
+125.100
+45613.2154123
+*/

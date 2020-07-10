@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 14:07:36 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:41:01 by bmarecha         ###   ########.fr       */
+/*   Created: 2019/11/16 11:43:24 by bmarecha          #+#    #+#             */
+/*   Updated: 2019/11/23 13:46:11 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+#include <stdlib.h>
 
-int		get_next_line(int fd, char **line);
-int		gnl_strrchr(char *str, char c);
-char	*ft_stradd(char *dest, const char *src);
-char	*ft_resetto(char *str, char c);
-char	*ft_cpyto(char *src, char c);
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	unsigned long	i;
+	char			*p;
 
-#endif
+	i = 0;
+	p = dst;
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	if (dst < src)
+	{
+		while (i++ < len)
+			p[i - 1] = ((char *)src)[i - 1];
+	}
+	else
+		while (len--)
+			p[len] = ((char *)src)[len];
+	return (dst);
+}

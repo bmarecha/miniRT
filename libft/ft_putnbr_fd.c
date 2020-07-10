@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 14:07:36 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:41:01 by bmarecha         ###   ########.fr       */
+/*   Created: 2019/11/23 14:18:22 by bmarecha          #+#    #+#             */
+/*   Updated: 2019/11/23 14:20:15 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+#include "libft.h"
 
-int		get_next_line(int fd, char **line);
-int		gnl_strrchr(char *str, char c);
-char	*ft_stradd(char *dest, const char *src);
-char	*ft_resetto(char *str, char c);
-char	*ft_cpyto(char *src, char c);
-
-#endif
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n < 0)
+	{
+		if (n == -2147483648)
+		{
+			ft_putstr_fd("-2147483648", fd);
+			return ;
+		}
+		ft_putchar_fd('-', fd);
+		n *= -1;
+	}
+	if (n > 9)
+		ft_putnbr_fd((n / 10), fd);
+	ft_putchar_fd((n % 10 + '0'), fd);
+}

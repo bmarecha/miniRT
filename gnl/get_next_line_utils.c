@@ -6,13 +6,13 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 15:20:46 by bmarecha          #+#    #+#             */
-/*   Updated: 2019/12/16 12:47:55 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:41:44 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_strrchr(char *str, char c)
+int		gnl_strrchr(char *str, char c)
 {
 	if (*str == c)
 		return (1);

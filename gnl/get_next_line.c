@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 13:51:20 by bmarecha          #+#    #+#             */
-/*   Updated: 2019/12/16 15:22:14 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:41:24 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int		get_next_line(int fd, char **line)
 			|| (*memory[fd] = 0))) ||
 			!(temp = malloc(BUFFER_SIZE + 1)))
 		return (-1);
-	while (!ft_strrchr(memory[fd], '\n')
+	while (!gnl_strrchr(memory[fd], '\n')
 		&& (readv = read(fd, temp, BUFFER_SIZE)) > 0)
 	{
 		temp[readv] = '\0';
 		memory[fd] = ft_stradd(memory[fd], temp);
 	}
 	free(temp);
-	res = ft_strrchr(memory[fd], '\n');
+	res = gnl_strrchr(memory[fd], '\n');
 	*line = ft_cpyto(memory[fd], '\n');
 	memory[fd] = ft_resetto(memory[fd], '\n');
 	if (readv == -1)

@@ -6,11 +6,25 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:17:24 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/09 17:12:10 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:35:11 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+int		ft_strcmp(char *a, char *b)
+{
+	while (*a && *b)
+	{
+		if (*a != *b)
+			return (-1);
+		a++;
+		b++;
+	}
+	if (*a || *b)
+		return (-1);
+	return (0);		
+}
 
 int		array_length(t_camera **array)
 {

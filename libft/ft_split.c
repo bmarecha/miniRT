@@ -5,42 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/10 14:17:02 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 14:17:10 by bmarecha         ###   ########.fr       */
+/*   Created: 2019/08/19 10:30:26 by bmarecha          #+#    #+#             */
+/*   Updated: 2019/11/23 15:26:57 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int				ft_strcmp(char *a, char *b)
-{
-	while (*a && *b)
-	{
-		if (*a != *b)
-			return (-1);
-		a++;
-		b++;
-	}
-	if (*a || *b)
-		return (-1);
-	return (0);
-}
-
-static int		is_in(char c, char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static char		*ft_strndup(char *src, int n)
+static char		*ft_strndup(const char *src, int n)
 {
 	int		i;
 	char	*cpy;
@@ -60,7 +32,7 @@ static char		*ft_strndup(char *src, int n)
 	return (cpy);
 }
 
-static	int		ft_word_count(char *str, char *charset)
+static int		ft_word_count(const char *str, char c)
 {
 	int i;
 	int inside;
@@ -71,7 +43,7 @@ static	int		ft_word_count(char *str, char *charset)
 	words = 0;
 	while (str[i])
 	{
-		if (is_in(str[i], charset) != -1)
+		if (str[i] == c)
 			inside = 0;
 		else if (inside == 0)
 		{
@@ -83,28 +55,38 @@ static	int		ft_word_count(char *str, char *charset)
 	return (words);
 }
 
-char			**ft_split(char *str, char *charset)
+static char		**all_free(char **split, int i)
+{
+	while (--i)
+		free(split[i]);
+	free(split);
+	return (NULL);
+}
+
+char			**ft_split(char const *str, char c)
 {
 	char	**split;
 	int		words;
 	int		i;
 	int		length[2];
 
-	words = ft_word_count(str, charset);
+	if (str == NULL)
+		return (NULL);
+	words = ft_word_count(str, c);
 	if ((split = (char **)malloc(sizeof(char *) * (words + 1))) == NULL)
 		return (NULL);
 	i = 0;
-	length[0] = 0;
 	length[1] = 0;
 	while (i < words)
 	{
-		while (str[length[1]] && is_in(str[length[1]], charset) == -1)
+		length[0] = length[1];
+		while (str[length[1]] && str[length[1]] != c)
 			length[1]++;
 		if (length[1] == length[0])
 			length[1]++;
-		else
-			split[i++] = ft_strndup(str + length[0], length[1] - length[0]);
-		length[0] = length[1];
+		else if ((split[i++] = ft_strndup(str + length[0],
+			length[1] - length[0])) == NULL)
+			return (all_free(split, --i));
 	}
 	split[i] = 0;
 	return (split);
