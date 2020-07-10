@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 18:10:16 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/09 17:12:46 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:36:35 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	complete_free(char **array)
 
 	i = 0;
 	if (!array)
-		return;
+		return ;
 	while (array[i])
 	{
 		free(array[i]);
@@ -44,7 +44,7 @@ int		read_line(char **infos, t_scene *scene)
 		res = add_ambiantlight(infos, scene);
 	else if (!ft_strcmp(infos[0], "c"))
 		res = add_camera(infos, scene);
- 	else if (!ft_strcmp(infos[0], "l"))
+	else if (!ft_strcmp(infos[0], "l"))
 		res = add_light(infos, scene);
 	else if (!ft_strcmp(infos[0], "sp"))
 		res = add_sphere(infos, scene);
@@ -72,10 +72,10 @@ int		complete_read_line(char **infos, t_scene *scene)
 
 int		read_file(int fd, t_scene *scene)
 {
-	int res;
-	char **line;
-	char **infos;
-	
+	int		res;
+	char	**line;
+	char	**infos;
+
 	line = malloc(1);
 	while ((res = get_next_line(fd, line)) == 1)
 	{
@@ -92,19 +92,21 @@ int		read_file(int fd, t_scene *scene)
 	}
 	free(line);
 	close(fd);
-	return(0);
+	return (0);
 }
 
-int		main (int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	t_scene *scene;
-	int fd;
+	t_scene	*scene;
+	int		fd;
 
 	if (argc > 1)
 	{
 		fd = open(argv[1], O_RDONLY);
-		if ((scene = malloc(sizeof(t_scene))) == NULL)
-			return (0);
+		if (!(scene = malloc(sizeof(t_scene))))
+			return (-1);
+		*scene = (t_scene) {0, 0, 0, (t_colors) {0, 0, 0},
+				NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 		if (read_file(fd, scene) != -1)
 		{
 			printf("%d\n%d\n%d\n%d", scene->xsize, scene->ysize,

@@ -6,12 +6,12 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:27:17 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/09 17:05:36 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:36:38 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
-# define  MINIRT_H
+# define MINIRT_H
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -26,7 +26,7 @@ typedef struct	s_point
 	float		z;
 }				t_point;
 
-typedef	struct s_colors
+typedef	struct	s_colors
 {
 	int			r;
 	int			g;
@@ -35,8 +35,8 @@ typedef	struct s_colors
 
 typedef struct	s_camera
 {
-	t_point 	place;
-	t_point 	view;
+	t_point		place;
+	t_point		view;
 
 	int			fov;
 }				t_camera;
@@ -116,6 +116,5 @@ int				add_ambiantlight(char **infos, t_scene *scene);
 int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
 int				array_length(t_camera **array);
-//void			*array_add(void **array, void *cell);
 
 #endif
