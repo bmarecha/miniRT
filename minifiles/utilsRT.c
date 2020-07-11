@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 15:32:31 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/11 15:46:53 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/11 17:34:39 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_strcmp(char *a, char *b)
 	}
 	if (*a || *b)
 		return (-1);
-	return (0);		
+	return (0);
 }
 
 int		array_length(t_camera **array)
@@ -35,8 +35,7 @@ int		array_length(t_camera **array)
 	i = 0;
 	while (array[i])
 		i++;
-	
-	return i;
+	return (i);
 }
 
 void	point_create(char *x, char *y, char *z, t_point *point)
@@ -44,6 +43,17 @@ void	point_create(char *x, char *y, char *z, t_point *point)
 	point->x = ft_atof(x);
 	point->y = ft_atof(y);
 	point->z = ft_atof(z);
+}
+
+void	scene_free(t_scene *scene)
+{
+	ft_lstclear(&(scene->cams), &free);
+	ft_lstclear(&(scene->lights), &free);
+	ft_lstclear(&(scene->spheres), &free);
+	ft_lstclear(&(scene->planes), &free);
+	ft_lstclear(&(scene->squares), &free);
+	ft_lstclear(&(scene->cylindres), &free);
+	ft_lstclear(&(scene->triangles), &free);
 }
 
 /*

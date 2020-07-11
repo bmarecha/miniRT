@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 13:32:13 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/11 13:42:47 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/11 17:37:40 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		read_line(char **infos, t_scene *scene)
 		res = 0;
 	else if (!ft_strcmp(infos[0], "R") && scene->xsize == 0)
 		res = add_sizes(infos, scene);
-	else if (!ft_strcmp(infos[0], "A") && scene->ambiantr == 0)
+	else if (!ft_strcmp(infos[0], "A") && scene->ambiantr == 2)
 		res = add_ambiantlight(infos, scene);
 	else if (!ft_strcmp(infos[0], "c"))
 		res = add_camera(infos, scene);
@@ -93,7 +93,7 @@ int		read_file(int fd, t_scene *scene)
 	free(line);
 	close(fd);
 	if (scene->xsize <= 0 || scene->ysize <= 0)
-		return(-1);
+		return (-1);
 	return (0);
 }
 
@@ -104,19 +104,19 @@ int		main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		printf("%f\n%f\n", ft_atof(argv[1]), (argc > 2 ? ft_atof(argv[2]) : 13.13 ));
 		fd = open(argv[1], O_RDONLY);
 		if (!(scene = malloc(sizeof(t_scene))))
 			return (-1);
-		*scene = (t_scene) {0, 0, 0, (t_colors) {0, 0, 0},
+		*scene = (t_scene) {0, 0, 2, (t_colors) {0, 0, 0},
 				NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 		if (read_file(fd, scene) != -1)
 		{
-			printf("%d\n%d\n%d\n%d", scene->xsize, scene->ysize,
-					scene->ambiantc.r, scene->ambiantc.g);
+			printf("%d\n%d\n%f\n", scene->xsize, scene->ysize,
+					scene->ambiantr);
 		}
 		else
 			printf("Map error");
+		scene_free(scene);
 		free(scene);
 	}
 	else

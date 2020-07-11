@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 13:33:06 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/11 15:45:55 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:59:39 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ typedef	struct	s_scene
 	float		ambiantr;
 	t_colors	ambiantc;
 
-	t_list		cams;
-	t_list		lights;
-	t_list		spheres;
-	t_list		planes;
-	t_list		squares;
-	t_list		cylindres;
-	t_list		triangles;
+	t_list		*cams;
+	t_list		*lights;
+	t_list		*spheres;
+	t_list		*planes;
+	t_list		*squares;
+	t_list		*cylindres;
+	t_list		*triangles;
 }				t_scene;
 
 float			ft_atof(char *str);
@@ -118,5 +118,7 @@ int				add_ambiantlight(char **infos, t_scene *scene);
 int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
 int				array_length(t_camera **array);
+void			point_create(char *x, char *y, char *z, t_point *point);
+void			scene_free(t_scene *scene);
 
 #endif
