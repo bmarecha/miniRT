@@ -6,11 +6,11 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 14:15:08 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 14:16:44 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/11 13:31:47 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int			add_sizes(char **infos, t_scene *scene)
 {

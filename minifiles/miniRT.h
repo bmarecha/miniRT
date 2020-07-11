@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 17:27:17 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:45:10 by bmarecha         ###   ########.fr       */
+/*   Created: 2020/07/11 13:33:06 by bmarecha          #+#    #+#             */
+/*   Updated: 2020/07/11 15:45:55 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,16 @@ typedef	struct	s_scene
 	float		ambiantr;
 	t_colors	ambiantc;
 
-	t_camera	**cams;
-	t_light		**lights;
-	t_sphere	**spheres;
-	t_plane		**planes;
-	t_square	**squares;
-	t_cylindre	**cylindres;
-	t_triangle	**triangles;
+	t_list		cams;
+	t_list		lights;
+	t_list		spheres;
+	t_list		planes;
+	t_list		squares;
+	t_list		cylindres;
+	t_list		triangles;
 }				t_scene;
 
+float			ft_atof(char *str);
 char			**mini_split(char *str, char *charset);
 int				ft_strcmp(char *a, char *b);
 int				add_sphere(char **infos, t_scene *scene);

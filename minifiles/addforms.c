@@ -6,11 +6,11 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 14:17:24 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 14:20:12 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/11 15:46:45 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int	add_sphere(char **infos, t_scene *scene)
 {

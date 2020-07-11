@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilsRT.c                                          :+:      :+:    :+:   */
+/*   utilsrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/09 15:17:24 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 15:35:11 by bmarecha         ###   ########.fr       */
+/*   Created: 2020/07/11 15:32:31 by bmarecha          #+#    #+#             */
+/*   Updated: 2020/07/11 15:46:53 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 int		ft_strcmp(char *a, char *b)
 {
@@ -38,6 +38,14 @@ int		array_length(t_camera **array)
 	
 	return i;
 }
+
+void	point_create(char *x, char *y, char *z, t_point *point)
+{
+	point->x = ft_atof(x);
+	point->y = ft_atof(y);
+	point->z = ft_atof(z);
+}
+
 /*
 void	array_free(void *array)
 {

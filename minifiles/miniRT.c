@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 18:10:16 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/10 16:21:02 by bmarecha         ###   ########.fr       */
+/*   Created: 2020/07/11 13:32:13 by bmarecha          #+#    #+#             */
+/*   Updated: 2020/07/11 13:42:47 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "../gnl/get_next_line.h"
 
 int		complete_read_line(char **infos, t_scene *scene);
@@ -92,6 +92,8 @@ int		read_file(int fd, t_scene *scene)
 	}
 	free(line);
 	close(fd);
+	if (scene->xsize <= 0 || scene->ysize <= 0)
+		return(-1);
 	return (0);
 }
 
@@ -102,6 +104,7 @@ int		main(int argc, char **argv)
 
 	if (argc > 1)
 	{
+		printf("%f\n%f\n", ft_atof(argv[1]), (argc > 2 ? ft_atof(argv[2]) : 13.13 ));
 		fd = open(argv[1], O_RDONLY);
 		if (!(scene = malloc(sizeof(t_scene))))
 			return (-1);
@@ -117,5 +120,5 @@ int		main(int argc, char **argv)
 		free(scene);
 	}
 	else
-		printf("Map missing\n%f", ft_atof("423"));
+		printf("Map missing\n");
 }
