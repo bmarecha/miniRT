@@ -6,14 +6,24 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 13:32:13 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/11 17:37:40 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:36:51 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "../gnl/get_next_line.h"
 
-int		complete_read_line(char **infos, t_scene *scene);
+int		complete_read_line(char **infos, t_scene *scene)
+{
+	int res;
+
+	res = -1;
+	if (!ft_strcmp(infos[0], "cy"))
+		res = add_cylindre(infos, scene);
+	else if (!ft_strcmp(infos[0], "tr"))
+		res = add_triangle(infos, scene);
+	return (res);
+}
 
 void	complete_free(char **array)
 {
@@ -55,18 +65,6 @@ int		read_line(char **infos, t_scene *scene)
 	else
 		res = complete_read_line(infos, scene);
 	complete_free(infos);
-	return (res);
-}
-
-int		complete_read_line(char **infos, t_scene *scene)
-{
-	int res;
-
-	res = -1;
-	if (!ft_strcmp(infos[0], "cy"))
-		res = add_cylindre(infos, scene);
-	else if (!ft_strcmp(infos[0], "tr"))
-		res = add_triangle(infos, scene);
 	return (res);
 }
 
@@ -113,6 +111,7 @@ int		main(int argc, char **argv)
 		{
 			printf("%d\n%d\n%f\n", scene->xsize, scene->ysize,
 					scene->ambiantr);
+			exit(window_start(scene));
 		}
 		else
 			printf("Map error");

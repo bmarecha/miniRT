@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 13:33:06 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/11 16:59:39 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:50:45 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "mlx.h"
 
 typedef struct	s_point
 {
@@ -94,6 +95,8 @@ typedef	struct	s_scene
 	int			ysize;
 	float		ambiantr;
 	t_colors	ambiantc;
+	void		*wink;
+	void		*mlink;
 
 	t_list		*cams;
 	t_list		*lights;
@@ -120,5 +123,6 @@ int				add_colors(int r, int g, int b, t_colors *colors);
 int				array_length(t_camera **array);
 void			point_create(char *x, char *y, char *z, t_point *point);
 void			scene_free(t_scene *scene);
+int				window_start(t_scene *scene);
 
 #endif
