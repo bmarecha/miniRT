@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 13:32:13 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/13 17:36:51 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/15 16:58:01 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		read_line(char **infos, t_scene *scene)
 		res = 0;
 	else if (!ft_strcmp(infos[0], "R") && scene->xsize == 0)
 		res = add_sizes(infos, scene);
-	else if (!ft_strcmp(infos[0], "A") && scene->ambiantr == 2)
+	else if (!ft_strcmp(infos[0], "A") && !scene->ambiantdef)
 		res = add_ambiantlight(infos, scene);
 	else if (!ft_strcmp(infos[0], "c"))
 		res = add_camera(infos, scene);
@@ -98,26 +98,26 @@ int		read_file(int fd, t_scene *scene)
 int		main(int argc, char **argv)
 {
 	t_scene	*scene;
-	int		fd;
 
-	if (argc > 1)
+	if (argc <= 1)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (!(scene = malloc(sizeof(t_scene))))
-			return (-1);
-		*scene = (t_scene) {0, 0, 2, (t_colors) {0, 0, 0},
-				NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-		if (read_file(fd, scene) != -1)
-		{
-			printf("%d\n%d\n%f\n", scene->xsize, scene->ysize,
-					scene->ambiantr);
-			exit(window_start(scene));
-		}
-		else
-			printf("Map error");
+		printf("Map Missing");
+		return (0);
+	}
+	if (!(scene = malloc(sizeof(t_scene))))
+		return (-1);
+	ft_bzero(scene, sizeof(*scene));
+	if (read_file(open(argv[1], O_RDONLY) , scene) == -1)
+	{
+		printf("Map error");
 		scene_free(scene);
 		free(scene);
+		return (0);
 	}
-	else
-		printf("Map missing\n");
+	printf("%d\n%d\n%f\n", scene->xsize, scene->ysize,
+		scene->ambiantr);
+	window_start(scene);
+	window_destroy(scene);
+	free(scene);
+	return (0);
 }

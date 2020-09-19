@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 13:33:06 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/13 17:50:45 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/15 17:08:51 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ typedef	struct	s_scene
 	int			ysize;
 	float		ambiantr;
 	t_colors	ambiantc;
+	int			ambiantdef;
 	void		*wink;
 	void		*mlink;
+	int			window_supp;
 
 	t_list		*cams;
 	t_list		*lights;
@@ -124,5 +126,7 @@ int				array_length(t_camera **array);
 void			point_create(char *x, char *y, char *z, t_point *point);
 void			scene_free(t_scene *scene);
 int				window_start(t_scene *scene);
+void			window_destroy(t_scene *scene);
+int				exit_prog(t_scene *scene);
 
 #endif

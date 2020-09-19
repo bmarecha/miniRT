@@ -6,7 +6,7 @@
 /*   By: bmarecha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 14:15:08 by bmarecha          #+#    #+#             */
-/*   Updated: 2020/07/11 17:33:50 by bmarecha         ###   ########.fr       */
+/*   Updated: 2020/07/15 16:12:17 by bmarecha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int			add_ambiantlight(char **infos, t_scene *scene)
 	if (add_colors(ft_atoi(infos[2]), ft_atoi(infos[3]), ft_atoi(infos[4]),
 			&(scene->ambiantc)) == -1)
 		return (-1);
+	scene->ambiantdef = 1;
 	return (0);
 }
 
