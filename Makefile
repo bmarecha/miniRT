@@ -6,20 +6,21 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/addambiant.c \
 			minifiles/utilsrt.c \
 			minifiles/ft_atof.c \
-			minifiles/windowmanager.c
+			minifiles/windowmanager.c 
 
 OBJS	=	${SRCS:.c=.o}
 
 NAME	=	miniRT
 
-MLXDIR = minilibx_mms_20200219/
+#MLXDIR = minilibx_mms_20200219/
+MLXDIR = minilibx_opengl_20191021/
 
-MLX		=	libmlx.dylib
+MLX		=	libmlx.a
 
 LIBFT = libft/libft.a
 
 .c.o	:
-	gcc -Wall -Werror -Wextra -Ilibft/ -c $< -o ${<:.c=.o}
+	gcc -Wall -Werror -Wextra -I${MLXDIR} -Ilibft/ -c $< -o ${<:.c=.o}
 
 all     :   ${NAME}
 
@@ -31,7 +32,7 @@ $(LIBFT) :
 	make -C libft/
 
 $(NAME)	:	${OBJS} ${LIBFT} ${MLX}
-	gcc ${OBJS} -I${MLXDIR} -Ilibft/ -L${MLXDIR} -Llibft/ -lft -lmlx -o ${NAME}
+	gcc ${OBJS} -I${MLXDIR} -Ilibft/ -L${MLXDIR} -lmlx -Llibft/ -lft -o ${NAME}
 
 clean	:
 	rm -f ${OBJS}
