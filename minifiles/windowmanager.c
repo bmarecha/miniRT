@@ -12,6 +12,8 @@
 
 #include "minirt.h"
 
+#define EXIT_KEY 65307
+
 int			win_changecam(int keycode, void *param)
 {
 	t_scene		*scene;
@@ -21,7 +23,7 @@ int			win_changecam(int keycode, void *param)
 	i++;
 	c = ft_itoa(keycode);
 	scene = param;
-	if (keycode == 53)
+	if (keycode == EXIT_KEY)
 	{
 		free(c);
 		exit_prog(scene);
@@ -43,7 +45,7 @@ void		window_run(t_scene *scene)
 {
 	//mlx_loop_hook(scene->wink, draw, scene);
 	mlx_key_hook(scene->wink, &win_changecam, scene);
-	mlx_hook(scene->wink, 17, (1L << 17), exit_prog, scene);
+	mlx_hook(scene->wink, 17, (1L<<17), exit_prog, scene);
 	mlx_loop(scene->mlink);
 }
 

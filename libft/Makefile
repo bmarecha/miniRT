@@ -65,12 +65,12 @@ NAME	=	libft.a
 	gcc -Wall -Werror -Wextra -Iincludes/ -c $< -o ${<:.c=.o}
 
 $(NAME)	:	${OBJS} ${OBJS_BONUS}
-	ar rc ${NAME} ${OBJS} ${ONJS_BONUS}
+	ar -rc ${NAME} ${OBJS} ${ONJS_BONUS}
 
 all		:	${NAME}
 
 bonus	:	${OBJS} ${OBJS_BONUS}
-	ar rc ${NAME} ${OBJS} ${OBJS_BONUS}
+	ar -rc ${NAME} ${OBJS} ${OBJS_BONUS}
 
 clean	:
 	rm -f ${OBJS} ${OBJS_BONUS}

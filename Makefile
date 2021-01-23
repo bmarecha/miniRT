@@ -13,34 +13,44 @@ OBJS	=	${SRCS:.c=.o}
 NAME	=	miniRT
 
 #MLXDIR = minilibx_mms_20200219/
-MLXDIR = minilibx_opengl_20191021/
+MLXDIR = minilibx-linux/
 
-MLX		=	libmlx.a
+MLX	= ${MLXDIR}libmlx.a
 
 LIBFT = libft/libft.a
 
+INCLUDES = -Ilibft/ \
+	   -I${MLXDIR} \
+	   -I/usr/include
+
+INCLIB = -L/usr/lib \
+	 -Llibft/ \
+	 -L${MLXDIR}
+
+LIBS = -lft -lmlx -lXext -lX11 -lm -lbsd
+
 .c.o	:
-	gcc -Wall -Werror -Wextra -I${MLXDIR} -Ilibft/ -c $< -o ${<:.c=.o}
+	gcc -Wall -Werror -Wextra -c $< ${INCLUDES} -o ${<:.c=.o}
 
 all     :   ${NAME}
 
 $(MLX)	:
 	make -C ${MLXDIR}
-	cp ${MLXDIR}/${MLX} ./
 
 $(LIBFT) :
 	make -C libft/
 
-$(NAME)	:	${OBJS} ${LIBFT} ${MLX}
-	gcc ${OBJS} -I${MLXDIR} -Ilibft/ -L${MLXDIR} -lmlx -Llibft/ -lft -o ${NAME}
+$(NAME)	: ${LIBFT} ${MLX} ${OBJS}
+	gcc -o ${NAME} ${INCLIB} ${OBJS} ${LIBS}
 
 clean	:
 	rm -f ${OBJS}
-	rm -f ${MLX}
 	make clean -C ${MLXDIR}
 	make clean -C libft/
 
 fclean	:	clean
+	make fclean -C libft/
+	rm -f ${MLX}
 	rm -f ${NAME}
 
 re		: fclean all 
