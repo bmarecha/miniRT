@@ -6,7 +6,8 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/addambiant.c \
 			minifiles/utilsrt.c \
 			minifiles/ft_atof.c \
-			minifiles/windowmanager.c 
+			minifiles/windowmanager.c \
+			minifiles/drawing.c 
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -38,7 +39,7 @@ $(MLX)	:
 	make -C ${MLXDIR}
 
 $(LIBFT) :
-	make -C libft/
+	make re -C libft/
 
 $(NAME)	: ${LIBFT} ${MLX} ${OBJS}
 	gcc -o ${NAME} ${INCLIB} ${OBJS} ${LIBS}

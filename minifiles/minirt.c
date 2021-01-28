@@ -90,7 +90,7 @@ int		read_file(int fd, t_scene *scene)
 	}
 	free(line);
 	close(fd);
-	if (scene->xsize <= 0 || scene->ysize <= 0)
+	if (scene->xsize <= 0 || scene->ysize <= 0 || !scene->cams)
 		return (-1);
 	return (0);
 }
