@@ -42,7 +42,7 @@ $(LIBFT) :
 	make re -C libft/
 
 $(NAME)	: ${LIBFT} ${MLX} ${OBJS}
-	gcc -o ${NAME} ${INCLIB} ${OBJS} ${LIBS}
+	gcc -g -o ${NAME} ${INCLIB} ${OBJS} ${LIBS}
 
 clean	:
 	rm -f ${OBJS}

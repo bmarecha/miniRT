@@ -4,6 +4,7 @@ int	calculate(t_scene *scene)
 {
 	int i;
 	int j;
+	static int phase = 0;
 	t_colors **tab;
 
 	i = -1;
@@ -13,12 +14,13 @@ int	calculate(t_scene *scene)
 		j = 0;
 		while (scene->ysize > j)
 		{
-			tab[i][j] = scene->ambiantc;
+			tab[i][j] = scene->ambiantc - phase;
 			j++;
 		}
 	}
 	scene->vue->changed = 1;
 	printf("Calculated\n");
+	phase += 100;
 	return (1);
 }
 int	draw(t_scene *scene)
@@ -26,7 +28,6 @@ int	draw(t_scene *scene)
 	int i;
 	int j;
 	t_colors **tab;
-	t_colors cur;
 
 	printf("TryDraw");
 	if (!scene->vue->changed)
@@ -39,9 +40,8 @@ int	draw(t_scene *scene)
 	{
 		while (scene->ysize > ++j)
 		{
-			cur = tab[i][j];
 			mlx_pixel_put(scene->mlink, scene->wink, i, j,
-				cur.r * 1000000 + cur.g *1000 + cur.b);
+				(int) tab[i][j]);
 		}
 		j = -1;
 	}

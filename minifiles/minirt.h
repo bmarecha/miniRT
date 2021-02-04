@@ -27,14 +27,15 @@ typedef struct	s_point
 	float		y;
 	float		z;
 }				t_point;
-
+/*
 typedef	struct	s_colors
 {
 	int			r;
 	int			g;
 	int			b;
 }				t_colors;
-
+*/
+typedef int			t_colors;
 typedef struct	s_camera
 {
 	t_point		place;
@@ -106,6 +107,7 @@ typedef	struct	s_scene
 	int			ambiantdef;
 	void		*wink;
 	void		*mlink;
+	void		*ilink;
 	int			window_supp;
 
 	t_list		*cams;
@@ -116,6 +118,7 @@ typedef	struct	s_scene
 	t_list		*cylindres;
 	t_list		*triangles;
 	t_sight		*vue;
+	
 }				t_scene;
 
 float			ft_atof(char *str);

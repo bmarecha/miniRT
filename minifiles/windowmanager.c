@@ -31,6 +31,8 @@ int			win_keypress(int keycode, void *param)
 	} else if (keycode == CAM_KEY)
 	{
 		i++;
+		calculate(scene);
+		draw(scene);
 	} else
 		printf("Keycode : %s, cam n°%d\n", c, i);
 	free(c);
@@ -66,7 +68,8 @@ int			window_start(t_scene *scene)
 	i = -1;
 	if (!(scene->mlink = mlx_init()) || !(scene->wink = mlx_new_window(
 		scene->mlink, scene->xsize, scene->ysize, "Tests")) ||
-		!(scene->vue = malloc(sizeof(t_sight))))
+		!(scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize))
+		|| !(scene->vue = malloc(sizeof(t_sight))))
 		return (EXIT_FAILURE);
 	ft_bzero(scene->vue, sizeof(*(scene->vue)));
 	if (!(scene->vue->pixels = (t_colors **)malloc(sizeof(void*) * scene->xsize)))

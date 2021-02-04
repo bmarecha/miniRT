@@ -86,8 +86,7 @@ int			add_colors(int r, int g, int b, t_colors *colors)
 {
 	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 		return (-1);
-	colors->r = r;
-	colors->g = g;
-	colors->b = b;
+	*colors = r * 1000000 + g * 1000 + b;
+	printf("%d,%d,%d\n", r,g,b);
 	return (0);
 }
