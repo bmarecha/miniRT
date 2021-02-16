@@ -41,7 +41,9 @@ int			win_keypress(int keycode, void *param)
 
 int			exit_prog(t_scene *scene)
 {
+	mlx_destroy_image(scene->mlink, scene->ilink);
 	window_destroy(scene);
+	
 	exit(0);
 	return (1);
 }
@@ -63,22 +65,10 @@ void		window_destroy(t_scene *scene)
 
 int			window_start(t_scene *scene)
 {
-	int i;
-
-	i = -1;
 	if (!(scene->mlink = mlx_init()) || !(scene->wink = mlx_new_window(
 		scene->mlink, scene->xsize, scene->ysize, "Tests")) ||
-		!(scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize))
-		|| !(scene->vue = malloc(sizeof(t_sight))))
+		!(scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize)))
 		return (EXIT_FAILURE);
-	ft_bzero(scene->vue, sizeof(*(scene->vue)));
-	if (!(scene->vue->pixels = (t_colors **)malloc(sizeof(void*) * scene->xsize)))
-		return (EXIT_FAILURE);
-	while (++i < scene->xsize)
-	{
-		if (!(scene->vue->pixels[i] = (t_colors*)malloc(sizeof(t_colors) * scene->ysize)))
-			return (EXIT_FAILURE);
-	}
 	calculate(scene);
 	draw(scene);
 	window_run(scene);

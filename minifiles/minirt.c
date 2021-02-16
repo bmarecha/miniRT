@@ -65,7 +65,6 @@ int		read_line(char **infos, t_scene *scene)
 	else
 		res = complete_read_line(infos, scene);
 	complete_free(infos);
-	printf("%d\n",res);
 	return (res);
 }
 

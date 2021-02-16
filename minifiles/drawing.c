@@ -2,49 +2,45 @@
 
 int	calculate(t_scene *scene)
 {
-	int i;
-	int j;
-	static int phase = 0;
-	t_colors **tab;
+	int		sizepix;
+	int		sizeline;
+	int		endian;
+	static int	phase = 0;
+	char		*tab;
+	int		i;
 
-	i = -1;
-	tab = scene->vue->pixels;
-	while (tab[++i])
+	
+	tab = mlx_get_data_addr(scene->ilink, &sizepix, &sizeline, &endian);
+	i = 0;
+	while (i < scene->ysize * sizeline)
 	{
-		j = 0;
-		while (scene->ysize > j)
-		{
-			tab[i][j] = scene->ambiantc - phase;
-			j++;
-		}
+		//mlx_get_color_value(scene->mlink, color);
+		if (i%4 ==0)
+			tab[i] = (scene->ambiantc - phase)%1000;
+		else if (i%4 == 1)
+			tab[i] = (scene->ambiantc - phase)/1000%1000;
+		else if (i%4 == 2)
+			tab[i] = (scene->ambiantc - phase)/1000/1000%1000;
+		else
+			tab[i] = (scene->ambiantc - phase)/1000/1000/1000%1000;
+		if (i < 4)
+			printf("%u : %d\n", tab[i], scene->ambiantc - phase);
+		i += 1;
 	}
-	scene->vue->changed = 1;
-	printf("Calculated\n");
-	phase += 100;
+	scene->changed = 1;
+	printf("Calculated, %d, %d\n", sizepix, sizeline);
+	phase += 10;
 	return (1);
 }
 int	draw(t_scene *scene)
 {
-	int i;
-	int j;
-	t_colors **tab;
+	
 
 	printf("TryDraw");
-	if (!scene->vue->changed)
+	if (!scene->changed || !scene->ilink)
 		return (1);
 	printf("drawing\n");
-	i = -1;
-	j = -1;
-	tab = scene->vue->pixels;
-	while (tab[++i])
-	{
-		while (scene->ysize > ++j)
-		{
-			mlx_pixel_put(scene->mlink, scene->wink, i, j,
-				(int) tab[i][j]);
-		}
-		j = -1;
-	}
-	scene->vue->changed = 0;
+	mlx_put_image_to_window(scene->mlink, scene->wink, scene->ilink, 0, 0);
+	scene->changed = 0;
 	return (1);
 }

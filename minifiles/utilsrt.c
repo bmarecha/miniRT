@@ -47,9 +47,6 @@ void	point_create(char *x, char *y, char *z, t_point *point)
 
 void	scene_free(t_scene *scene)
 {
-	int i;
-
-	i = -1;
 	ft_lstclear(&(scene->cams), &free);
 	ft_lstclear(&(scene->lights), &free);
 	ft_lstclear(&(scene->spheres), &free);
@@ -57,14 +54,6 @@ void	scene_free(t_scene *scene)
 	ft_lstclear(&(scene->squares), &free);
 	ft_lstclear(&(scene->cylindres), &free);
 	ft_lstclear(&(scene->triangles), &free);
-	if (scene->vue)
-	{
-		while ((scene->vue->pixels)[++i])
-		{
-			free(scene->vue->pixels[i]);
-		}
-		free(scene->vue);
-	}
 }
 
 /*

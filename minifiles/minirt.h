@@ -27,14 +27,7 @@ typedef struct	s_point
 	float		y;
 	float		z;
 }				t_point;
-/*
-typedef	struct	s_colors
-{
-	int			r;
-	int			g;
-	int			b;
-}				t_colors;
-*/
+
 typedef int			t_colors;
 typedef struct	s_camera
 {
@@ -90,14 +83,6 @@ typedef	struct	s_triangle
 	t_colors	color;
 }				t_triangle;
 
-
-typedef struct	s_sight
-{
-	t_camera	*pov;
-	t_colors	**pixels;
-	int		changed;
-}				t_sight;
-
 typedef	struct	s_scene
 {
 	int			xsize;
@@ -117,7 +102,8 @@ typedef	struct	s_scene
 	t_list		*squares;
 	t_list		*cylindres;
 	t_list		*triangles;
-	t_sight		*vue;
+	t_camera	*pov;
+	int		changed;
 	
 }				t_scene;
 
