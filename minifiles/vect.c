@@ -1,22 +1,4 @@
-#include <stdio.h>
-typedef struct	s_point
-{
-	double		x;
-	double		y;
-	double		z;
-}				t_point;
-
-typedef	struct	s_triangle
-{
-	t_point		first;
-	t_point		second;
-	t_point		third;
-}				t_triangle;
-
-void	print_point(t_point p)
-{
-	printf("( %f, %f, %f)", p.x, p.y, p.z);
-}
+#include "minirt.h"
 
 double	prod_scal(t_point u, t_point v)
 {
