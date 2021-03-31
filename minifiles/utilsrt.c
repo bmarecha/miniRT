@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		ft_strcmp(char *a, char *b)
+int	ft_strcmp(char *a, char *b)
 {
 	while (*a && *b)
 	{
@@ -26,9 +26,9 @@ int		ft_strcmp(char *a, char *b)
 	return (0);
 }
 
-int		array_length(t_camera **array)
+int	array_length(t_camera **array)
 {
-	int i;
+	int	i;
 
 	if (!array)
 		return (0);

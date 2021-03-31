@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-static int		is_in(char c, char *str)
+static int	is_in(char c, char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -26,7 +26,7 @@ static int		is_in(char c, char *str)
 	return (-1);
 }
 
-static char		*ft_strndup(char *src, int n)
+static char	*ft_strndup(char *src, int n)
 {
 	int		i;
 	char	*cpy;
@@ -34,7 +34,8 @@ static char		*ft_strndup(char *src, int n)
 	i = 0;
 	while (src[i] && i < n)
 		i++;
-	if ((cpy = malloc(sizeof(char) * (i + 1))) == NULL)
+	cpy = malloc(sizeof(char) * (i + 1));
+	if (!cpy)
 		return (NULL);
 	i = 0;
 	while (src[i] && i < n)
@@ -46,11 +47,11 @@ static char		*ft_strndup(char *src, int n)
 	return (cpy);
 }
 
-static int		ft_word_count(char *str, char *charset)
+static int	ft_word_count(char *str, char *charset)
 {
-	int i;
-	int inside;
-	int words;
+	int	i;
+	int	inside;
+	int	words;
 
 	i = 0;
 	inside = 0;
@@ -69,7 +70,7 @@ static int		ft_word_count(char *str, char *charset)
 	return (words);
 }
 
-char			**mini_split(char *str, char *charset)
+char	**mini_split(char *str, char *charset)
 {
 	char	**split;
 	int		words;
@@ -77,7 +78,8 @@ char			**mini_split(char *str, char *charset)
 	int		length[2];
 
 	words = ft_word_count(str, charset);
-	if ((split = (char **)malloc(sizeof(char *) * (words + 1))) == NULL)
+	split = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!split)
 		return (NULL);
 	i = 0;
 	length[0] = 0;

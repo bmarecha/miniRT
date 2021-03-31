@@ -7,7 +7,10 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/utilsrt.c \
 			minifiles/ft_atof.c \
 			minifiles/windowmanager.c \
-			minifiles/drawing.c 
+			minifiles/drawing.c \
+			minifiles/vect.c \
+			minifiles/rayons.c \
+			minifiles/intertria.c
 
 OBJS	=	${SRCS:.c=.o}
 

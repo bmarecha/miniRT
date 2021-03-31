@@ -20,15 +20,16 @@ static float	numbers_process(char *str, int *coma)
 	while (i && *str)
 	{
 		if (*str == '.')
+		{
 			if (*coma > 0)
 				break ;
 			else
 				*coma = *coma + 1;
+		}
 		else if (*str < 48 || *str > 57)
 			break ;
-		else if (!(*str == 48 && res == 0 && *coma == 0))
+		else if (!(*str == 48 && res == 0 && *coma == 0) && i-- > -2)
 		{
-			i--;
 			res = res * 10 + *str - 48;
 			if (*coma > 0)
 				*coma += 1;
@@ -38,7 +39,7 @@ static float	numbers_process(char *str, int *coma)
 	return (res);
 }
 
-float			ft_atof(char *str)
+float	ft_atof(char *str)
 {
 	float	res;
 	int		coma;

@@ -21,7 +21,7 @@
 # include "libft.h"
 # include "mlx.h"
 
-typedef struct	s_point
+typedef struct s_point
 {
 	float		x;
 	float		y;
@@ -29,7 +29,15 @@ typedef struct	s_point
 }				t_point;
 
 typedef int			t_colors;
-typedef struct	s_camera
+
+typedef struct s_ray
+{
+	t_point		origin;
+	t_point		dir;
+	t_colors	color;
+}		t_ray;
+
+typedef struct s_camera
 {
 	t_point		place;
 	t_point		view;
@@ -37,28 +45,28 @@ typedef struct	s_camera
 	int			fov;
 }				t_camera;
 
-typedef	struct	s_light
+typedef struct s_light
 {
 	t_point		place;
 	t_colors	color;
 	float		rate;
 }				t_light;
 
-typedef	struct	s_sphere
+typedef	struct s_sphere
 {
 	t_point		center;
 	float		diameter;
 	t_colors	color;
 }				t_sphere;
 
-typedef	struct	s_plane
+typedef	struct s_plane
 {
 	t_point		start;
 	t_point		way;
 	t_colors	color;
 }				t_plane;
 
-typedef	struct	s_square
+typedef	struct s_square
 {
 	t_point		start;
 	t_point		way;
@@ -66,7 +74,7 @@ typedef	struct	s_square
 	t_colors	color;
 }				t_square;
 
-typedef	struct	s_cylindre
+typedef	struct s_cylindre
 {
 	t_point		start;
 	t_point		way;
@@ -75,7 +83,7 @@ typedef	struct	s_cylindre
 	t_colors	color;
 }				t_cylindre;
 
-typedef	struct	s_triangle
+typedef	struct s_triangle
 {
 	t_point		first;
 	t_point		second;
@@ -83,7 +91,7 @@ typedef	struct	s_triangle
 	t_colors	color;
 }				t_triangle;
 
-typedef	struct	s_scene
+typedef	struct s_scene
 {
 	int			xsize;
 	int			ysize;
@@ -107,8 +115,8 @@ typedef	struct	s_scene
 	
 }				t_scene;
 
-float			ft_atof(char *str);
-char			**mini_split(char *str, char *charset);
+float				ft_atof(char *str);
+char				**mini_split(char *str, char *charset);
 int				ft_strcmp(char *a, char *b);
 int				add_sphere(char **infos, t_scene *scene);
 int				add_plane(char **infos, t_scene *scene);
@@ -121,12 +129,18 @@ int				add_ambiantlight(char **infos, t_scene *scene);
 int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
 int				array_length(t_camera **array);
-void			point_create(char *x, char *y, char *z, t_point *point);
-void			scene_free(t_scene *scene);
+void				point_create(char *x, char *y, char *z, t_point *point);
+void				scene_free(t_scene *scene);
 int				window_start(t_scene *scene);
-void			window_destroy(t_scene *scene);
+void				window_destroy(t_scene *scene);
 int				exit_prog(t_scene *scene);
 int				calculate(t_scene *scene);
 int				draw(t_scene *scene);
-
+float				prod_scal(t_point u, t_point v);
+t_point				prod_vect(t_point u, t_point v);
+t_point				scale_vect(t_point v, float l);
+t_point				add_vect(t_point v, t_point u);
+t_point				less_vect(t_point v, t_point u);
+t_colors			ray_color(t_ray r, t_scene *scene);
+int				inter_triang(void *p, t_ray *r);
 #endif

@@ -13,9 +13,9 @@
 #include "minirt.h"
 #include "../gnl/get_next_line.h"
 
-int		complete_read_line(char **infos, t_scene *scene)
+int	complete_read_line(char **infos, t_scene *scene)
 {
-	int res;
+	int	res;
 
 	res = -1;
 	if (!ft_strcmp(infos[0], "cy"))
@@ -27,7 +27,7 @@ int		complete_read_line(char **infos, t_scene *scene)
 
 void	complete_free(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!array)
@@ -40,9 +40,9 @@ void	complete_free(char **array)
 	free(array);
 }
 
-int		read_line(char **infos, t_scene *scene)
+int	read_line(char **infos, t_scene *scene)
 {
-	int res;
+	int	res;
 
 	if (!infos)
 		return (-1);
@@ -68,14 +68,15 @@ int		read_line(char **infos, t_scene *scene)
 	return (res);
 }
 
-int		read_file(int fd, t_scene *scene)
+int	read_file(int fd, t_scene *scene)
 {
 	int		res;
 	char	**line;
 	char	**infos;
 
 	line = malloc(1);
-	while ((res = get_next_line(fd, line)) == 1)
+	res = get_next_line(fd, line);
+	while (res == 1)
 	{
 		printf("[%d] ||| %s\n", res, *line);
 		infos = mini_split(*line, "\n\t\v ,");
@@ -87,6 +88,7 @@ int		read_file(int fd, t_scene *scene)
 			return (-1);
 		}
 		free(*line);
+		res = get_next_line(fd, line);
 	}
 	free(line);
 	close(fd);
@@ -95,7 +97,7 @@ int		read_file(int fd, t_scene *scene)
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_scene	*scene;
 
@@ -104,10 +106,11 @@ int		main(int argc, char **argv)
 		printf("Map Missing");
 		return (0);
 	}
-	if (!(scene = malloc(sizeof(t_scene))))
+	scene = malloc(sizeof(t_scene));
+	if (!scene)
 		return (-1);
 	ft_bzero(scene, sizeof(*scene));
-	if (read_file(open(argv[1], O_RDONLY) , scene) == -1)
+	if (read_file(open(argv[1], O_RDONLY), scene) == -1)
 	{
 		printf("Map error");
 		scene_free(scene);
