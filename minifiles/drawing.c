@@ -56,15 +56,17 @@ t_space	get_cam_space(t_scene *scene)
 int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 {
 	int	res;
+	double	angle;
 	t_ray	x;
 	double	x_shift;
 	double	y_shift;
 	double	z_shift;
 
+	angle = ((float)(pixieme % scene->xsize) / (float)scene->xsize);
+       	angle = angle * scene->pov->fov - scene->pov->fov / 2;
 	x.origin = scene->pov->place;
 	z_shift = (2 / scene->ysize) * (pixieme % scene->ysize) - 1;
-	y_shift = ((2 / scene->xsize) * (pixieme / scene->xsize) - 1)
-		* (scene->pov->fov / 180);
+	y_shift = (float)(2 / scene->xsize) * angle;
 	x_shift = 1 - (scene->pov->fov / 180);
 	x.dir = scale_vect(space.u, x_shift);
 	x.dir = add_vect(scale_vect(space.v, y_shift), x.dir);
