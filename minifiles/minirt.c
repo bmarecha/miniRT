@@ -19,9 +19,9 @@ int	complete_read_line(char **infos, t_scene *scene)
 
 	res = -1;
 	if (!ft_strcmp(infos[0], "cy"))
-		res = add_cylindre(infos, scene);
+		res = add_cylindre(infos, &(scene->cylindres));
 	else if (!ft_strcmp(infos[0], "tr"))
-		res = add_triangle(infos, scene);
+		res = add_triangle(infos, &(scene->triangles));
 	return (res);
 }
 
@@ -57,11 +57,11 @@ int	read_line(char **infos, t_scene *scene)
 	else if (!ft_strcmp(infos[0], "l"))
 		res = add_light(infos, scene);
 	else if (!ft_strcmp(infos[0], "sp"))
-		res = add_sphere(infos, scene);
+		res = add_sphere(infos, &(scene->spheres));
 	else if (!ft_strcmp(infos[0], "pl"))
-		res = add_plane(infos, scene);
+		res = add_plane(infos, &(scene->planes));
 	else if (!ft_strcmp(infos[0], "sq"))
-		res = add_square(infos, scene);
+		res = add_square(infos, &(scene->squares));
 	else
 		res = complete_read_line(infos, scene);
 	complete_free(infos);

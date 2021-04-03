@@ -1,11 +1,5 @@
 #include "minirt.h"
 
-void	print_point(t_point p)
-{
-	printf("(%f, %f, %f)\n", p.x, p.y, p.z);
-}
-
-
 int	inter_triang(void *p, t_ray *r)
 {
 	t_point	n;
@@ -18,7 +12,7 @@ int	inter_triang(void *p, t_ray *r)
 	t_point	*res;
 	int	ori;
 	t_triangle	*t;
-	static int i = 0;
+//	static int i = 0;
 
 	t = (t_triangle *)p;
 	u = less_vect(t->second, t->first);
@@ -30,8 +24,8 @@ int	inter_triang(void *p, t_ray *r)
 	ir = (prod_scal(n, starts)/ori) * -1;
 	iu = prod_scal(prod_vect(starts,u),r->dir)/ori;
 	iv = prod_scal(prod_vect(starts,v),r->dir)/ori;
-	if (i++ < 5) {
-		printf("%f, %f, %f\n", ir, iu, iv);print_point(r->dir);}
+//	if (i++ < 5)
+//		printf("%f, %f, %f\n", ir, iu, iv);
 	if (ir <= 0 || iu < 0 || iu > 1 || iv < 0 || iv > 1)
 		return 0;
 	u = scale_vect(u, iu);

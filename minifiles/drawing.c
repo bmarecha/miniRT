@@ -30,6 +30,11 @@ void	showbits(char x)
 	printf(" : ");
 }
 
+void	print_point(t_point p)
+{
+	printf("(%f, %f, %f)\n", p.x, p.y, p.z);
+}
+
 typedef struct s_space {
 	t_point	u;
 	t_point	v;
@@ -42,7 +47,6 @@ t_space	get_cam_space(t_scene *scene)
 	t_point	zaxis;
 	t_point	normedv;
 
-	printf("Getting the cam space\n");
 	zaxis.x = 0;
 	zaxis.y = 0;
 	zaxis.z = 1;
@@ -50,6 +54,10 @@ t_space	get_cam_space(t_scene *scene)
 	res.v = prod_vect(res.u, zaxis);
 	normedv = scale_vect(res.v, 1 / prod_scal(res.v, res.v));
 	res.w = prod_vect(res.u, normedv);
+	printf("Got the cam space :\n");
+	print_point(res.u);
+	print_point(res.v);
+	print_point(res.w);
 	return (res);
 }
 
@@ -61,16 +69,20 @@ int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 	double	x_shift;
 	double	y_shift;
 	double	z_shift;
+	static int i = 0;
 
-	angle = ((float)(pixieme % scene->xsize) / (float)scene->xsize);
-       	angle = angle * scene->pov->fov - scene->pov->fov / 2;
+	angle = ((double)(pixieme % scene->xsize)) / ((double)scene->xsize);
+       	angle = angle * scene->pov->fov - ((double)scene->pov->fov) / 2.0;
+	angle = angle * (M_PI / 180.0);
 	x.origin = scene->pov->place;
-	z_shift = (2 / scene->ysize) * (pixieme % scene->ysize) - 1;
-	y_shift = (float)(2 / scene->xsize) * angle;
-	x_shift = 1 - (scene->pov->fov / 180);
+	z_shift = (-2.0 / scene->ysize) * (pixieme / scene->ysize) + 1;
+	y_shift = sin(angle);
+	x_shift = cos(angle);
 	x.dir = scale_vect(space.u, x_shift);
 	x.dir = add_vect(scale_vect(space.v, y_shift), x.dir);
 	x.dir = add_vect(scale_vect(space.w, z_shift), x.dir);
+	if (i++ < 50) {
+		printf("Shifts to camera space : %lf, %lf, %lf, angle : %lf\n", x_shift, y_shift, z_shift, angle);}//print_point(x.dir);}
 	res = ray_color(x, scene);
 	return (res);
 }
@@ -85,7 +97,6 @@ int	calculate(t_scene *scene)
 	int		color;
 	t_space		space;
 
-	printf("Getting image data\n");
 	tab = mlx_get_data_addr(scene->ilink, &sizepix, &sizeline, &endian);
 	i = 0;
 	space = get_cam_space(scene);

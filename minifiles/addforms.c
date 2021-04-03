@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-int	add_sphere(char **infos, t_scene *scene)
+int	add_sphere(char **infos, t_list **lst)
 {
 	t_sphere	*new;
 
 	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
-		|| !infos[6] || !infos[7] || infos[8] || !scene)
+		|| !infos[6] || !infos[7] || infos[8] || !lst)
 		return (-1);
 	new = malloc(sizeof(t_sphere));
 	if (!new)
@@ -27,18 +27,18 @@ int	add_sphere(char **infos, t_scene *scene)
 		return (-1);
 	point_create(infos[1], infos[2], infos[3], &(new->center));
 	new->diameter = ft_atof(infos[4]);
-	if (scene->spheres)
-		ft_lstadd_front(&(scene->spheres), ft_lstnew(new));
+	if (*lst)
+		ft_lstadd_front(lst, ft_lstnew(new));
 	else
-		scene->spheres = ft_lstnew(new);
+		*lst = ft_lstnew(new);
 	return (0);
 }
 
-int	add_plane(char **infos, t_scene *scene)
+int	add_plane(char **infos, t_list **lst)
 {
 	t_plane	*new;
 
-	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5] || !scene
+	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5] || !lst
 		|| !infos[6] || !infos[7] || !infos[8] || !infos[9] || infos[10])
 		return (-1);
 	new = malloc(sizeof(t_plane));
@@ -55,20 +55,20 @@ int	add_plane(char **infos, t_scene *scene)
 			&(new->color)) == -1)
 		return (-1);
 	point_create(infos[1], infos[2], infos[3], &(new->start));
-	if (scene->planes)
-		ft_lstadd_front(&(scene->planes), ft_lstnew(new));
+	if (*lst)
+		ft_lstadd_front(lst, ft_lstnew(new));
 	else
-		scene->planes = ft_lstnew(new);
+		*lst = ft_lstnew(new);
 	return (0);
 }
 
-int	add_square(char **infos, t_scene *scene)
+int	add_square(char **infos, t_list **lst)
 {
 	t_square	*new;
 
 	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
 		|| !infos[6] || !infos[7] || !infos[8] || !infos[9]
-		|| !infos[10] || infos[11] || !scene)
+		|| !infos[10] || infos[11] || !lst)
 		return (-1);
 	new = malloc(sizeof(t_square));
 	if (!new)
@@ -85,20 +85,20 @@ int	add_square(char **infos, t_scene *scene)
 		return (-1);
 	}
 	new->height = ft_atof(infos[7]);
-	if (scene->squares)
-		ft_lstadd_front(&(scene->squares), ft_lstnew(new));
+	if (*lst)
+		ft_lstadd_front(lst, ft_lstnew(new));
 	else
-		scene->squares = ft_lstnew(new);
+		*lst = ft_lstnew(new);
 	return (0);
 }
 
-int	add_cylindre(char **infos, t_scene *scene)
+int	add_cylindre(char **infos, t_list **lst)
 {
 	t_cylindre	*new;
 
 	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
 		|| !infos[6] || !infos[7] || !infos[8] || !infos[9]
-		|| !infos[10] || !infos[11] || infos[12] || !scene)
+		|| !infos[10] || !infos[11] || infos[12] || !lst)
 		return (-1);
 	new = malloc(sizeof(t_cylindre));
 	if (!new)
@@ -116,19 +116,19 @@ int	add_cylindre(char **infos, t_scene *scene)
 	}
 	new->diameter = ft_atof(infos[7]);
 	new->height = ft_atof(infos[8]);
-	if (scene->cylindres)
-		ft_lstadd_front(&(scene->cylindres), ft_lstnew(new));
+	if (*lst)
+		ft_lstadd_front(lst, ft_lstnew(new));
 	else
-		scene->cylindres = ft_lstnew(new);
+		*lst = ft_lstnew(new);
 	return (0);
 }
 
-int	add_triangle(char **infos, t_scene *scene)
+int	add_triangle(char **infos, t_list **lst)
 {
 	t_triangle	*new;
 
 	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
-		|| !infos[6] || !infos[7] || !infos[8] || !infos[9] || !scene
+		|| !infos[6] || !infos[7] || !infos[8] || !infos[9] || !lst
 		|| !infos[10] || !infos[11] || !infos[12] || infos[13])
 		return (-1);
 	new = malloc(sizeof(t_triangle));
@@ -140,6 +140,6 @@ int	add_triangle(char **infos, t_scene *scene)
 	point_create(infos[1], infos[2], infos[3], &(new->first));
 	point_create(infos[4], infos[5], infos[6], &(new->second));
 	point_create(infos[7], infos[8], infos[9], &(new->third));
-	ft_lstadd_front(&(scene->triangles), ft_lstnew(new));
+	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }
