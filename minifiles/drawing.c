@@ -17,19 +17,6 @@ void	assign_color(int color, char *pixel, int sizepix)
 	}
 }
 
-void	showbits(char x)
-{
-	int	i;
-
-	i = sizeof(char) * 8 - 1;
- 	while (i >= 0)
-	{
-		putchar(x & (1 << i) ? '1' : '0');
-		i--;
-	}
-	printf(" : ");
-}
-
 void	print_point(t_point p)
 {
 	printf("(%f, %f, %f)\n", p.x, p.y, p.z);
@@ -41,6 +28,18 @@ typedef struct s_space {
 	t_point	w;
 }		t_space;
 
+t_point normalize(t_point u)
+{
+	double	norm;
+	t_point	res;
+
+	norm = sqrt(prod_scal(u, u));
+	res.x = u.x / norm;
+	res.y = u.y / norm;
+	res.z = u.z / norm;
+	return (res);
+}
+
 t_space	get_cam_space(t_scene *scene)
 {
 	t_space	res;
@@ -51,9 +50,12 @@ t_space	get_cam_space(t_scene *scene)
 	zaxis.y = 0;
 	zaxis.z = 1;
 	res.u = scene->pov->view;
+	res.u = normalize(res.u);
 	res.v = prod_vect(res.u, zaxis);
-	normedv = scale_vect(res.v, 1 / prod_scal(res.v, res.v));
+	normedv = scale_vect(res.v, 1.0 / sqrt(prod_scal(res.v, res.v)));
 	res.w = prod_vect(res.u, normedv);
+	res.v = normedv;
+	res.w = scale_vect(res.w, 1.0 / sqrt(prod_scal(res.w, res.w)));
 	printf("Got the cam space :\n");
 	print_point(res.u);
 	print_point(res.v);
@@ -69,7 +71,6 @@ int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 	double	x_shift;
 	double	y_shift;
 	double	z_shift;
-	static int i = 0;
 
 	angle = ((double)(pixieme % scene->xsize)) / ((double)scene->xsize);
        	angle = angle * scene->pov->fov - ((double)scene->pov->fov) / 2.0;
@@ -81,8 +82,6 @@ int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 	x.dir = scale_vect(space.u, x_shift);
 	x.dir = add_vect(scale_vect(space.v, y_shift), x.dir);
 	x.dir = add_vect(scale_vect(space.w, z_shift), x.dir);
-	if (i++ < 50) {
-		printf("Shifts to camera space : %lf, %lf, %lf, angle : %lf\n", x_shift, y_shift, z_shift, angle);}//print_point(x.dir);}
 	res = ray_color(x, scene);
 	return (res);
 }
@@ -104,11 +103,6 @@ int	calculate(t_scene *scene)
 	{
 		color = get_pix_color(i, scene, space);
 		assign_color(color, tab + i * 4, sizepix);
-		if (i == 0)
-		{
-			showbits(tab[i]);
-			printf(" %d\n", scene->ambiantc);
-		}
 		i += 1;
 	}
 	scene->changed = 1;

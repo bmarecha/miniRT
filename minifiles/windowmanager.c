@@ -13,7 +13,15 @@
 #include "minirt.h"
 
 #define EXIT_KEY 65307
-#define CAM_KEY 100
+#define D_KEY 100
+#define A_KEY 97
+#define W_KEY 119
+#define S_KEY 115
+#define LEFT_KEY 65361
+#define UP_KEY 65362
+#define DOWN_KEY 65364
+#define RIGHT_KEY 65363
+#define CAM_KEY 99
 
 int	win_keypress(int keycode, void *param)
 {
@@ -30,6 +38,16 @@ int	win_keypress(int keycode, void *param)
 		exit_prog(scene);
 		return (1);
 	}
+	next = scene->pov;
+	if (keycode == W_KEY)
+		next->view = rotation(next->view, M_PI / 18.0, 2);
+	else if (keycode == A_KEY)
+		next->view = rotation(next->view, M_PI / 18.0, 1);
+	else if (keycode == D_KEY)
+		next->view = rotation(next->view, M_PI / -18.0, 1);
+	else if (keycode == S_KEY)
+		next->view = rotation(next->view, M_PI / -18.0, 2);
+
 	else if (keycode == CAM_KEY)
 	{
 		i++;
@@ -39,14 +57,18 @@ int	win_keypress(int keycode, void *param)
 		if (next)
 		{
 			scene->pov = next;
-			calculate(scene);
-			draw(scene);
 		}
 		else
 			printf("no cams available\n");
 	}
 	else
+	{
 		printf("Keycode : %s, cam n°%d, posx %f\n", c, i, scene->pov->place.x);
+		free(c);
+		return (0);
+	}
+	calculate(scene);
+	draw(scene);
 	free(c);
 	return (0);
 }
