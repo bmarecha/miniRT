@@ -26,7 +26,7 @@ int	inter_triang(void *p, t_ray *r)
 	iv = prod_scal(prod_vect(starts,v),r->dir)/ori;
 //	if (i++ < 5)
 //		printf("%f, %f, %f\n", ir, iu, iv);
-	if (ir <= 0 || iu < 0 || iu > 1 || iv < 0 || iv > 1)
+	if (ir <= 0 || iu < 0 || iv < 0 || iv + iu > 1)
 		return 0;
 	u = scale_vect(u, iu);
 	v = scale_vect(v, iv);

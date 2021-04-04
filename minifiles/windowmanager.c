@@ -26,28 +26,32 @@
 int	win_keypress(int keycode, void *param)
 {
 	t_scene		*scene;
-	char		*c;
+//	char		*c;
 	static int	i = 0;
 	t_camera	*next;
 
-	c = ft_itoa(keycode);
+//	c = ft_itoa(keycode);
 	scene = param;
 	if (keycode == EXIT_KEY)
-	{
-		free(c);
 		exit_prog(scene);
-		return (1);
-	}
 	next = scene->pov;
 	if (keycode == W_KEY)
-		next->view = rotation(next->view, M_PI / 18.0, 2);
+		next->place = translation(next->place, 1.0, 0);
 	else if (keycode == A_KEY)
-		next->view = rotation(next->view, M_PI / 18.0, 1);
+		next->place = translation(next->place, 1.0, 1);
 	else if (keycode == D_KEY)
-		next->view = rotation(next->view, M_PI / -18.0, 1);
+		next->place = translation(next->place, -1.0, 1);
 	else if (keycode == S_KEY)
-		next->view = rotation(next->view, M_PI / -18.0, 2);
-
+		next->place = translation(next->place, -1.0, 0);
+	else if (keycode == UP_KEY)
+		next->view = rotation(next->view, M_PI / 10.0, 2);
+	else if (keycode == LEFT_KEY)
+		next->view = rotation(next->view, M_PI / 10.0, 1);
+	else if (keycode == RIGHT_KEY)
+		next->view = rotation(next->view, M_PI / -10.0, 1);
+	else if (keycode == DOWN_KEY)
+		next->view = rotation(next->view, M_PI / -10.0, 2);
+	
 	else if (keycode == CAM_KEY)
 	{
 		i++;
@@ -63,13 +67,11 @@ int	win_keypress(int keycode, void *param)
 	}
 	else
 	{
-		printf("Keycode : %s, cam n°%d, posx %f\n", c, i, scene->pov->place.x);
-		free(c);
+		printf("Keycode : %d, cam n°%d, posx %f\n", keycode, i, scene->pov->place.x);
 		return (0);
 	}
 	calculate(scene);
 	draw(scene);
-	free(c);
 	return (0);
 }
 
@@ -105,8 +107,12 @@ int	window_start(t_scene *scene)
 	scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize);
 	if (!scene->wink || !scene->ilink)
 		return (EXIT_FAILURE);
+	mlx_clear_window(scene->mlink, scene->wink);
 	calculate(scene);
 	draw(scene);
-	window_run(scene);
+	mlx_loop_hook(scene->wink, draw, scene);
+	mlx_key_hook(scene->wink, win_keypress, scene);
+	mlx_hook(scene->wink, 17, (1L << 17), exit_prog, scene);
+	mlx_loop(scene->mlink);
 	return (EXIT_SUCCESS);	
 }

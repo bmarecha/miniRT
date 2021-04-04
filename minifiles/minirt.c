@@ -78,16 +78,15 @@ int	read_file(int fd, t_scene *scene)
 	res = get_next_line(fd, line);
 	while (res == 1)
 	{
-		printf("[%d] ||| %s\n", res, *line);
+		//printf("[%d] ||| %s\n", res, *line);
 		infos = mini_split(*line, "\n\t\v ,");
+		free(*line);
 		if (read_line(infos, scene) == -1)
 		{
-			free(*line);
 			free(line);
 			close(fd);
 			return (-1);
 		}
-		free(*line);
 		res = get_next_line(fd, line);
 	}
 	free(line);

@@ -72,12 +72,11 @@ int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 	double	y_shift;
 	double	z_shift;
 
-	angle = ((double)(pixieme % scene->xsize)) / ((double)scene->xsize);
-       	angle = angle * scene->pov->fov - ((double)scene->pov->fov) / 2.0;
+       	angle = scene->pov->fov - ((double)scene->pov->fov) / 2.0;
 	angle = angle * (M_PI / 180.0);
 	x.origin = scene->pov->place;
 	z_shift = (-2.0 / scene->ysize) * (pixieme / scene->ysize) + 1;
-	y_shift = sin(angle);
+	y_shift = sin(angle * ((double)(pixieme % scene->xsize)) / ((double)scene->xsize));
 	x_shift = cos(angle);
 	x.dir = scale_vect(space.u, x_shift);
 	x.dir = add_vect(scale_vect(space.v, y_shift), x.dir);

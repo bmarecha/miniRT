@@ -50,11 +50,11 @@ t_colors	ray_color(t_ray r, t_scene *scene)
 {
 	t_ray	impact;
 
+
 	if (closest_intersect(r, scene, &impact))
 		r.color = impact.color;
-	else if (scene)
+	else
 		r.color = scene->ambiantc;
 	//get color of shadow rays /Don't forget ambiant ligh/ fuse colors
-	
 	return (r.color);
 }

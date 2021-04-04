@@ -80,5 +80,6 @@ int				calculate(t_scene *scene);
 int				draw(t_scene *scene);
 t_colors			ray_color(t_ray r, t_scene *scene);
 t_point				rotation(t_point vect, double angle, int axis);
+t_point				translation(t_point vect, double shift, int axis);
 
 #endif
