@@ -16,6 +16,12 @@ t_point		rotation(t_point vect, double angle, int axis)
 		res.x = cos(angle) * vect.x - sin(angle) * vect.z;
 		res.z = sin(angle) * vect.x + cos(angle) * vect.z;
 	}
+	else if (axis == 3)
+	{
+		res.x = cos(angle) * vect.x - sin(angle) * vect.y;
+		res.y = sin(angle) * vect.x + cos(angle) * vect.y;
+		res.z = vect.z;
+	}
 	printf("dir : (%.2f, %.2f, %.2f)\n", res.x, res.y, res.z);
 	return (res);
 }

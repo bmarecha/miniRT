@@ -73,7 +73,7 @@ int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
 int				array_length(t_camera **array);
 void				scene_free(t_scene *scene);
-int				window_start(t_scene *scene);
+int				window_start(t_scene *scene, int save);
 void				window_destroy(t_scene *scene);
 int				exit_prog(t_scene *scene);
 int				calculate(t_scene *scene);
@@ -81,5 +81,7 @@ int				draw(t_scene *scene);
 t_colors			ray_color(t_ray r, t_scene *scene);
 t_point				rotation(t_point vect, double angle, int axis);
 t_point				translation(t_point vect, double shift, int axis);
+void				error_exit(int error);
+void				export_bmp(char *file, t_scene *scene);
 
 #endif

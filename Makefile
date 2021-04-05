@@ -1,7 +1,7 @@
 SRCS	=	gnl/get_next_line.c \
 			gnl/get_next_line_utils.c \
 			minifiles/minirt.c \
-			minifiles/addforms.c \
+			minifiles/forms/addforms.c \
 			minifiles/splitrt.c \
 			minifiles/addambiant.c \
 			minifiles/utilsrt.c \
@@ -10,8 +10,9 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/drawing.c \
 			minifiles/vect.c \
 			minifiles/rayons.c \
-			minifiles/intertria.c \
-			minifiles/isometries.c
+			minifiles/forms/intertria.c \
+			minifiles/isometries.c \
+			minifiles/create_bmp.c
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -26,7 +27,8 @@ LIBFT = libft/libft.a
 
 INCLUDES = -Ilibft/ \
 	   -I${MLXDIR} \
-	   -I/usr/include
+	   -I/usr/include \
+	   -Iminifiles/
 
 INCLIB = -L/usr/lib \
 	 -Llibft/ \

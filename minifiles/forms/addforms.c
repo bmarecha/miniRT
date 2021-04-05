@@ -36,24 +36,27 @@ int	add_plane(char **i, t_list **lst)
 	t_colors color;
 	t_point u; 
 
+	u.x = atof(i[4]);
+	u.y = atof(i[5]);
+	u.z = atof(i[6]);
 	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5] || !lst
 		|| !i[6] || !i[7] || !i[8] || !i[9] || i[10])
 		return (-1);
 	new = malloc(sizeof(t_plane));
-	if (!(i[4] * i[4] > 1 || i[5] * i[5] > 1 || i[6] * i[6] > 1) || !new
-		|| add_colors(atoi(infos[7]), atoi(infos[8]), atoi(infos[9]),
+	if (!(u.x * u.x > 1 || u.y * u.y > 1 || u.z * u.z > 1) || !new
+		|| add_colors(atoi(i[7]), atoi(i[8]), atoi(i[9]),
 		&(color)))
 		return (-1);
 	new->color = color;
 // en 2d : (x, y) -> ( x - y / 2 , x + y / 2  ) and ( y + x / 2, y - x / 2 )
 // en 3d : (x, y, z) -> ( , x + y + z / 3  ) and (   )
 	point_create(i[4], i[5], i[6], &(new->way1));
-	point_create(infos[1], infos[2], infos[3], &(new->start));
+	point_create(i[1], i[2], i[3], &(new->start));
 	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }
 
-int	add_square(char **i, t_list **lst)
+int	add_square(char **infos, t_list **lst)
 {
 	t_square	*new;
 

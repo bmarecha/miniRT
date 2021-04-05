@@ -22,7 +22,8 @@ typedef	struct s_sphere
 typedef	struct s_plane
 {
 	t_point		start;
-	t_point		way;
+	t_point		way1;
+	t_point		way2;
 	t_colors	color;
 }				t_plane;
 

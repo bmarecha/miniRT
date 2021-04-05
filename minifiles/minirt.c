@@ -101,25 +101,21 @@ int	main(int argc, char **argv)
 	t_scene	*scene;
 
 	if (argc <= 1)
-	{
-		printf("Map Missing");
-		return (0);
-	}
+		error_exit(-2);
 	scene = malloc(sizeof(t_scene));
 	if (!scene)
 		return (-1);
 	ft_bzero(scene, sizeof(*scene));
 	if (read_file(open(argv[1], O_RDONLY), scene) == -1)
 	{
-		printf("Map error");
 		scene_free(scene);
-		free(scene);
-		return (0);
+		error_exit(-3);
 	}
-	printf("%d\n%d\n%f\n", scene->xsize, scene->ysize,
-		scene->ambiantr);
-	window_start(scene);
-	window_destroy(scene);
-	free(scene);
+	if (argc == 3 && !ft_strcmp(argv[2], "-save"))
+		window_start(scene, 1);
+	else
+		window_start(scene, 0);
+//	window_destroy(scene);
+//	free(scene);
 	return (0);
 }

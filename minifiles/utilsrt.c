@@ -38,6 +38,14 @@ int	array_length(t_camera **array)
 	return (i);
 }
 
+int	exit_prog(t_scene *scene)
+{
+	mlx_destroy_image(scene->mlink, scene->ilink);
+	window_destroy(scene);
+	exit(0);
+	return (1);
+}
+
 void	point_create(char *x, char *y, char *z, t_point *point)
 {
 	point->x = ft_atof(x);
@@ -54,36 +62,19 @@ void	scene_free(t_scene *scene)
 	ft_lstclear(&(scene->squares), &free);
 	ft_lstclear(&(scene->cylindres), &free);
 	ft_lstclear(&(scene->triangles), &free);
+	free(scene);
 }
 
-/*
-void	array_free(void *array)
+void	error_exit(int error)
 {
-	int i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i];)
-		i++;
-	}
-	free(array);
+	write(STDERR_FILENO, "Error\n", 6);
+	if (error == -2)
+		write(STDERR_FILENO, "Map manquante\n", 14);
+	else if (error == -3)
+		write(STDERR_FILENO, "Erreur de map\n", 14);
+	else if (error == -4)
+		write(STDERR_FILENO, "Erreur d'allocation\n", 20);
+	else if (error == -5)
+		write(STDERR_FILENO, "Erreur avec le fichier .bmp\n", 28);
+	exit(error);
 }
-
-void	*array_add(void **array, void *cell)
-{
-	void	*newarray;
-	int		i;
-
-	if (!(newarray = malloc(sizeof(void *) * (array_length(array) + 2))))
-		return NULL;
-	i = -1;
-	if (array)
-		while (array[++i])
-			newarray[i] = array[i]
-	newarray[i] = malloc(sizeof(*cell));
-	newarray[i++] = cell;
-	newarray[i] = 0;
-	free(array);
-	return (newarray);
-}*/
