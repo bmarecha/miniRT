@@ -15,7 +15,7 @@ t_point	prod_vect(t_point u, t_point v)
 	return (w);
 }
 
-t_point	scale_vect(t_point v, float l)
+t_point	scale_v(t_point v, float l)
 {
 	t_point	w;
 
@@ -25,7 +25,7 @@ t_point	scale_vect(t_point v, float l)
 	return (w);
 }
 
-t_point	add_vect(t_point v, t_point u)
+t_point	add_v(t_point v, t_point u)
 {
 	t_point	w;
 
@@ -35,7 +35,7 @@ t_point	add_vect(t_point v, t_point u)
 	return (w);
 }
 
-t_point	less_vect(t_point v, t_point u)
+t_point	less_v(t_point v, t_point u)
 {
 	t_point	w;
 

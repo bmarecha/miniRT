@@ -12,7 +12,8 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/rayons.c \
 			minifiles/forms/intertria.c \
 			minifiles/isometries.c \
-			minifiles/create_bmp.c
+			minifiles/create_bmp.c \
+			minifiles/utilsray.c
 
 OBJS	=	${SRCS:.c=.o}
 

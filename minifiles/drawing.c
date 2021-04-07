@@ -17,52 +17,6 @@ void	assign_color(int color, char *pixel, int sizepix)
 	}
 }
 
-void	print_point(t_point p)
-{
-	printf("(%f, %f, %f)\n", p.x, p.y, p.z);
-}
-
-typedef struct s_space {
-	t_point	u;
-	t_point	v;
-	t_point	w;
-}		t_space;
-
-t_point normalize(t_point u)
-{
-	double	norm;
-	t_point	res;
-
-	norm = sqrt(prod_scal(u, u));
-	res.x = u.x / norm;
-	res.y = u.y / norm;
-	res.z = u.z / norm;
-	return (res);
-}
-
-t_space	get_cam_space(t_scene *scene)
-{
-	t_space	res;
-	t_point	zaxis;
-	t_point	normedv;
-
-	zaxis.x = 0;
-	zaxis.y = 0;
-	zaxis.z = 1;
-	res.u = scene->pov->view;
-	res.u = normalize(res.u);
-	res.v = prod_vect(res.u, zaxis);
-	normedv = scale_vect(res.v, 1.0 / sqrt(prod_scal(res.v, res.v)));
-	res.w = prod_vect(res.u, normedv);
-	res.v = normedv;
-	res.w = scale_vect(res.w, 1.0 / sqrt(prod_scal(res.w, res.w)));
-	printf("Got the cam space :\n");
-	print_point(res.u);
-	print_point(res.v);
-	print_point(res.w);
-	return (res);
-}
-
 int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 {
 	int	res;
@@ -78,34 +32,31 @@ int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 	z_shift = (-2.0 / scene->ysize) * (pixieme / scene->ysize) + 1;
 	y_shift = sin(angle * ((double)(pixieme % scene->xsize)) / ((double)scene->xsize));
 	x_shift = cos(angle);
-	x.dir = scale_vect(space.u, x_shift);
-	x.dir = add_vect(scale_vect(space.v, y_shift), x.dir);
-	x.dir = add_vect(scale_vect(space.w, z_shift), x.dir);
+	x.dir = scale_v(space.u, x_shift);
+	x.dir = add_v(scale_v(space.v, y_shift), x.dir);
+	x.dir = add_v(scale_v(space.w, z_shift), x.dir);
 	res = ray_color(x, scene);
 	return (res);
 }
 
 int	calculate(t_scene *scene)
 {
-	int		sizepix;
-	int		sizeline;
-	int		endian;
-	char		*tab;
 	int		i;
 	int		color;
 	t_space		space;
+	t_image		img;
 
-	tab = mlx_get_data_addr(scene->ilink, &sizepix, &sizeline, &endian);
 	i = 0;
-	space = get_cam_space(scene);
-	while (i < scene->ysize * sizeline / 4)
+	img = *(scene->img);
+	space = scene->pov->base;
+	while (i < scene->ysize * img.sizeline / 4)
 	{
 		color = get_pix_color(i, scene, space);
-		assign_color(color, tab + i * 4, sizepix);
+		assign_color(color, img.data + i * 4, img.sizepix);
 		i += 1;
 	}
 	scene->changed = 1;
-	printf("Calculated, %d, %d\n", sizepix, sizeline);
+	printf("Calculated, %d, %d\n", img.sizepix, img.sizeline);
 	return (1);
 }
 

@@ -78,6 +78,7 @@ int	add_camera(char **infos, t_scene *scene)
 	point_create(infos[1], infos[2], infos[3], &(new->place));
 	point_create(infos[4], infos[5], infos[6], &(new->view));
 	new->fov = ft_atoi(infos[7]);
+	new->base = get_cam_space(new->view);
 	if (!(new->fov) || new->view.x * new->view.x > 1
 		|| new->view.y * new->view.y > 1 || new->view.z * new->view.z > 1)
 	{

@@ -43,7 +43,7 @@ int	add_plane(char **i, t_list **lst)
 		|| !i[6] || !i[7] || !i[8] || !i[9] || i[10])
 		return (-1);
 	new = malloc(sizeof(t_plane));
-	if (!(u.x * u.x > 1 || u.y * u.y > 1 || u.z * u.z > 1) || !new
+	if ((u.x * u.x > 1 || u.y * u.y > 1 || u.z * u.z > 1) || !new
 		|| add_colors(atoi(i[7]), atoi(i[8]), atoi(i[9]),
 		&(color)))
 		return (-1);

@@ -19,6 +19,7 @@
 #define S_KEY 115
 #define Z_KEY 122
 #define Q_KEY 113
+#define E_KEY 101
 #define LEFT_KEY 65361
 #define UP_KEY 65362
 #define DOWN_KEY 65364
@@ -37,7 +38,7 @@ void	change_cam(t_camera **pov, t_list *cams)
 	if (next)
 	{
 		*pov = next;
-		//printf("Changed to camera n°%d\n", i);
+		printf("Changed to camera n°%d\n", i);
 	}
 	else
 		printf("no cams available\n");
@@ -46,10 +47,8 @@ void	change_cam(t_camera **pov, t_list *cams)
 int	win_keypress(int keycode, void *param)
 {
 	t_scene		*scene;
-//	char		*c;
 	t_camera	*next;
 
-//	c = ft_itoa(keycode);
 	scene = param;
 	if (keycode == EXIT_KEY)
 		exit_prog(scene);
@@ -62,16 +61,20 @@ int	win_keypress(int keycode, void *param)
 		next->place = translation(next->place, -1.0, 1);
 	else if (keycode == S_KEY)
 		next->place = translation(next->place, -1.0, 0);
+	else if (keycode == A_KEY)
+		next->place = translation(next->place, -1.0, 2);
+	else if (keycode == E_KEY)
+		next->place = translation(next->place, 1.0, 2);
 	else if (keycode == UP_KEY)
-		next->view = rotation(next->view, M_PI / 10.0, 2);
+		next->base = rotationfull(next->base, M_PI / 10.0, 2);
 	else if (keycode == LEFT_KEY)
-		next->view = rotation(next->view, M_PI / 10.0, 1);
+		next->base = rotationfull(next->base, M_PI / 10.0, 1);
 	else if (keycode == RIGHT_KEY)
-		next->view = rotation(next->view, M_PI / -10.0, 1);
+		next->base = rotationfull(next->base, M_PI / -10.0, 1);
 	else if (keycode == DOWN_KEY)
-		next->view = rotation(next->view, M_PI / -10.0, 2);	
+		next->base = rotationfull(next->base, M_PI / -10.0, 2);	
 	else if (keycode == CAM_KEY)
-		change_cam(&next, scene->cams);
+		change_cam(&(scene->pov), scene->cams);
 	else {
 		printf("Keycode : %d, posx %f\n", keycode, scene->pov->place.x);
 		return (0);
@@ -91,7 +94,7 @@ void	window_run(t_scene *scene)
 
 void	window_destroy(t_scene *scene)
 {
-	if (!scene->window_supp && scene->wink)
+	if (scene->wink)
 		mlx_destroy_window(scene->mlink, scene->wink);
 	mlx_destroy_display(scene->mlink);
 	scene_free(scene);
@@ -106,10 +109,15 @@ int	window_start(t_scene *scene, int save)
 	scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize);
 	if (!scene->wink || !scene->ilink)
 		return (EXIT_FAILURE);
+	scene->img = malloc(sizeof(t_image));
+	if (!scene->img)
+		return (-1);
 	mlx_clear_window(scene->mlink, scene->wink);
+	scene->img->data = mlx_get_data_addr(scene->ilink, &(scene->img->sizepix),
+		&(scene->img->sizeline), &(scene->img->endian));
 	calculate(scene);
 	if (save)
-		export_bmp("miniRT_save" ,scene);
+		export_bmp("miniRT_save", scene);
 	draw(scene);
 	mlx_loop_hook(scene->wink, draw, scene);
 	mlx_key_hook(scene->wink, win_keypress, scene);

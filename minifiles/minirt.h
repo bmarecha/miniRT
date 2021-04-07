@@ -24,10 +24,18 @@
 # include "forms.h"
 # include "raysmaths.h"
 
+
+typedef struct s_space {
+	t_point	u;
+	t_point	v;
+	t_point	w;
+}		t_space;
+
 typedef struct s_camera
 {
 	t_point		place;
 	t_point		view;
+	t_space		base;
 
 	int			fov;
 }				t_camera;
@@ -39,6 +47,14 @@ typedef struct s_light
 	float		rate;
 }				t_light;
 
+typedef struct s_image
+{
+	char	*data;
+	int	sizeline;
+	int	endian;
+	int	sizepix;
+}				t_image;
+
 typedef	struct s_scene
 {
 	int			xsize;
@@ -49,7 +65,6 @@ typedef	struct s_scene
 	void		*wink;
 	void		*mlink;
 	void		*ilink;
-	int			window_supp;
 
 	t_list		*cams;
 	t_list		*lights;
@@ -59,29 +74,50 @@ typedef	struct s_scene
 	t_list		*cylindres;
 	t_list		*triangles;
 	t_camera	*pov;
+	t_image		*img;
 	int		changed;
-	
+	char		*data;	
 }				t_scene;
+
+/*
+** Utils fonctions
+*/
 
 float				ft_atof(char *str);
 char				**mini_split(char *str, char *charset);
 int				ft_strcmp(char *a, char *b);
+int				array_length(t_camera **array);
+void				scene_free(t_scene *scene);
+
+t_point				rotation(t_point vect, double angle, int axis);
+t_space				rotationfull(t_space base, double angle, int axis);
+t_point				translation(t_point vect, double shift, int axis);
+t_point				normalize(t_point u);
+void				print_point(t_point p);
+
+void				export_bmp(char *file, t_scene *scene);
+
+/*
+** Parsing Fonctions
+*/
+
 int				add_camera(char **infos, t_scene *scene);
 int				add_light(char **infos, t_scene *scene);
 int				add_ambiantlight(char **infos, t_scene *scene);
 int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
-int				array_length(t_camera **array);
-void				scene_free(t_scene *scene);
+t_space				get_cam_space(t_point direction);
+
+/*
+** Window Fonctions
+*/
+
 int				window_start(t_scene *scene, int save);
 void				window_destroy(t_scene *scene);
 int				exit_prog(t_scene *scene);
 int				calculate(t_scene *scene);
 int				draw(t_scene *scene);
 t_colors			ray_color(t_ray r, t_scene *scene);
-t_point				rotation(t_point vect, double angle, int axis);
-t_point				translation(t_point vect, double shift, int axis);
 void				error_exit(int error);
-void				export_bmp(char *file, t_scene *scene);
 
 #endif
