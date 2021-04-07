@@ -121,7 +121,7 @@ int	window_start(t_scene *scene, int save)
 	draw(scene);
 	mlx_loop_hook(scene->wink, draw, scene);
 	mlx_key_hook(scene->wink, win_keypress, scene);
-	mlx_hook(scene->wink, 17, (1L << 17), exit_prog, scene);
+	mlx_hook(scene->wink, 33, 0, exit_prog, scene);
 	mlx_loop(scene->mlink);
 	return (EXIT_SUCCESS);	
 }

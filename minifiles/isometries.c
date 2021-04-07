@@ -36,6 +36,7 @@ t_point		translation(t_point vect, double shift, int axis)
 		res.y += shift;
 	else if (axis == 2)
 		res.z += shift;
+	printf("New pos : (%f,%f,%f)\n", res.x, res.y, res.z);
 	return (res);
 }
 

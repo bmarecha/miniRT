@@ -1,4 +1,5 @@
 #include "minirt.h"
+int g_i = 0;
 
 void	assign_color(int color, char *pixel, int sizepix)
 {
@@ -49,6 +50,9 @@ int	calculate(t_scene *scene)
 	i = 0;
 	img = *(scene->img);
 	space = scene->pov->base;
+	print_point(space.u);
+	print_point(space.v);
+	print_point(space.w);
 	while (i < scene->ysize * img.sizeline / 4)
 	{
 		color = get_pix_color(i, scene, space);
@@ -56,7 +60,6 @@ int	calculate(t_scene *scene)
 		i += 1;
 	}
 	scene->changed = 1;
-	printf("Calculated, %d, %d\n", img.sizepix, img.sizeline);
 	return (1);
 }
 

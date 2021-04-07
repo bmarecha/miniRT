@@ -24,12 +24,7 @@
 # include "forms.h"
 # include "raysmaths.h"
 
-
-typedef struct s_space {
-	t_point	u;
-	t_point	v;
-	t_point	w;
-}		t_space;
+# define EPSILON 0.0001
 
 typedef struct s_camera
 {

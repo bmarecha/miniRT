@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-float	prod_scal(t_point u, t_point v)
+double	prod_scal(t_point u, t_point v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
@@ -15,7 +15,7 @@ t_point	prod_vect(t_point u, t_point v)
 	return (w);
 }
 
-t_point	scale_v(t_point v, float l)
+t_point	scale_v(t_point v, double l)
 {
 	t_point	w;
 
