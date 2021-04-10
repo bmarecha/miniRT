@@ -52,38 +52,32 @@ int	add_plane(char **i, t_list **lst)
 		free(new);
 		return (-1);
 	}
+	base = get_cam_space(u);
 	create_plane(new, i + 1, base, color);
 	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }
 
-int	add_square(char **infos, t_list **lst)
+int	add_square(char **i, t_list **lst)
 {
 	t_square	*new;
+	t_point		norm;
+	t_space		base;
+	t_colors	c;
 
-	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
-		|| !infos[6] || !infos[7] || !infos[8] || !infos[9]
-		|| !infos[10] || infos[11] || !lst)
+	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5] || !i[6] || !i[7]
+		|| !i[8] || !i[9] || !i[10] || i[11] || !lst)
 		return (-1);
 	new = malloc(sizeof(t_square));
-	if (!new)
+	if (!new || add_colors(atoi(i[8]), atoi(i[9]), atoi(i[10]), &c) == -1)
 		return (-1);
-	if (add_colors(atoi(infos[8]), atoi(infos[9]), atoi(infos[10]),
-			&(new->color)) == -1)
+	point_create(i[4], i[5], i[6], &(norm));
+	if (norm.x * norm.x + norm.y * norm.y + norm.z * norm.z > 1)
 		return (-1);
-	point_create(infos[1], infos[2], infos[3], &(new->start));
-	point_create(infos[4], infos[5], infos[6], &(new->way));
-	if (!(new->way.x * new->way.x > 1 || new->way.y * new->way.y > 1
-			|| new->way.z * new->way.z > 1))
-	{
-		free(new);
-		return (-1);
-	}
-	new->height = ft_atof(infos[7]);
-	if (*lst)
-		ft_lstadd_front(lst, ft_lstnew(new));
-	else
-		*lst = ft_lstnew(new);
+	base = get_cam_space(norm);
+	create_plane(&(new->plane), i + 1, base, c);
+	new->height = ft_atof(i[7]);
+	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }
 
@@ -118,23 +112,29 @@ int	add_cylindre(char **infos, t_list **lst)
 	return (0);
 }
 
-int	add_triangle(char **infos, t_list **lst)
+int	add_triangle(char **i, t_list **lst)
 {
 	t_triangle	*new;
+	t_space		base;
+	t_point		norm;
+	t_colors	c;
 
-	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
-		|| !infos[6] || !infos[7] || !infos[8] || !infos[9] || !lst
-		|| !infos[10] || !infos[11] || !infos[12] || infos[13])
+	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5]
+		|| !i[6] || !i[7] || !i[8] || !i[9] || !lst
+		|| !i[10] || !i[11] || !i[12] || i[13])
 		return (-1);
 	new = malloc(sizeof(t_triangle));
 	if (!new)
 		return (-1);
-	if (add_colors(atoi(infos[10]), atoi(infos[11]), atoi(infos[12]),
-			&(new->color)) == -1)
+	if (add_colors(atoi(i[10]), atoi(i[11]), atoi(i[12]), &c) == -1)
 		return (-1);
-	point_create(infos[1], infos[2], infos[3], &(new->first));
-	point_create(infos[4], infos[5], infos[6], &(new->second));
-	point_create(infos[7], infos[8], infos[9], &(new->third));
+	point_create(i[1], i[2], i[3], &(new->first));
+	point_create(i[4], i[5], i[6], &(new->second));
+	point_create(i[7], i[8], i[9], &(new->third));
+	norm = prod_vect(less_v(new->second, new->first),
+			less_v(new->third, new->second));
+	base = get_cam_space(norm);
+	create_plane(&(new->plane), i + 1, base, c);
 	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }

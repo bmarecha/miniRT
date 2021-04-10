@@ -23,20 +23,27 @@ int	get_pix_color(int pixieme, t_scene *scene, t_space space)
 	int	res;
 	double	angle;
 	t_ray	x;
-	double	x_shift;
 	double	y_shift;
 	double	z_shift;
 
-       	angle = scene->pov->fov - ((double)scene->pov->fov) / 2.0;
-	angle = angle * (M_PI / 180.0);
+       	angle = tan(scene->pov->fov * M_PI / 360);	
 	x.origin = scene->pov->place;
-	z_shift = (-2.0 / scene->ysize) * (pixieme / scene->ysize) + 1;
-	y_shift = sin(angle * ((double)(pixieme % scene->xsize)) / ((double)scene->xsize));
-	x_shift = cos(angle);
-	x.dir = scale_v(space.u, x_shift);
+	z_shift = (-2.0 / (double)scene->ysize) * (pixieme / scene->xsize) + 1;
+	y_shift = angle * (1 - (2 * (double)(pixieme % scene->xsize)) / ((double)scene->xsize));
+	x.dir = space.u;
 	x.dir = add_v(scale_v(space.v, y_shift), x.dir);
 	x.dir = add_v(scale_v(space.w, z_shift), x.dir);
-	res = ray_color(x, scene);
+/*	if (pixieme % scene->xsize == 0)
+	{
+		print_point(x.dir);
+		printf("%f, %f || 0\n", angle, y_shift);
+	}
+	if (pixieme % scene->xsize == 500)
+	{
+		print_point(x.dir);
+		printf("%f, %f || 500\n", angle, y_shift);
+	}
+*/	res = ray_color(x, scene);
 	return (res);
 }
 

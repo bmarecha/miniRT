@@ -17,5 +17,7 @@ t_point                         add_v(t_point v, t_point u);
 t_point                         less_v(t_point v, t_point u);
 double				inter_triang(void *p, t_ray *r);
 double				inter_pla(void *p, t_ray *r);
+double				inter_square(void *p, t_ray *r);
+double				inter_sphere(void *sp, t_ray *r);
 
 #endif

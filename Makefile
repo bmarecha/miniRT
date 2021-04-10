@@ -3,6 +3,7 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/minirt.c \
 			minifiles/forms/addforms.c \
 			minifiles/forms/create_forms.c \
+			minifiles/forms/intersphere.c \
 			minifiles/splitrt.c \
 			minifiles/addambiant.c \
 			minifiles/utilsrt.c \
@@ -11,7 +12,6 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/drawing.c \
 			minifiles/vect.c \
 			minifiles/rayons.c \
-			minifiles/forms/intertria.c \
 			minifiles/forms/interplane.c \
 			minifiles/isometries.c \
 			minifiles/create_bmp.c \
