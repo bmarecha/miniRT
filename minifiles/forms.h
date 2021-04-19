@@ -22,7 +22,6 @@ typedef	struct s_sphere
 {
 	t_point		center;
 	double		rayon;
-	double		diameter;
 	t_colors	color;
 }				t_sphere;
 

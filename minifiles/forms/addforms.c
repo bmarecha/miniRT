@@ -25,7 +25,7 @@ int	add_sphere(char **i, t_list **lst)
 	if (add_colors(atoi(i[5]), atoi(i[6]), atoi(i[7]), &(new->color)))
 		return (-1);
 	point_create(i[1], i[2], i[3], &(new->center));
-	new->diameter = ft_atof(i[4]);
+	new->rayon = ft_atof(i[4]) / 2;
 	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }

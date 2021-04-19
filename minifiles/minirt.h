@@ -24,7 +24,7 @@
 # include "forms.h"
 # include "raysmaths.h"
 
-# define EPSILON 0.0001
+# define EPSILON 0.00001
 
 typedef struct s_camera
 {
