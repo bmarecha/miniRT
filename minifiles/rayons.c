@@ -11,12 +11,12 @@ static double	closest_inlst(t_list *lst, double (*f)(void *, t_ray *), t_ray r, 
 		return (INFINITY);
 	p = lst;
 	tmp = r;
-	len =  1.0/sqrt(prod_scal(r.dir, r.dir));
+	len = sqrt(prod_scal(r.dir, r.dir));
 	if (min->color == -1)
 		sizemin = INFINITY;
 	else
 		sizemin = sqrt(prod_scal(min->dir, min->dir));
-	if (f(p->content, &tmp) *len < sizemin)
+	if (f(p->content, &tmp) * len < sizemin)
 	{
 		*min = tmp;
 		sizemin = sqrt(prod_scal(min->dir, min->dir));

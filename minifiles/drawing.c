@@ -20,7 +20,7 @@ void	assign_color(int color, char *pixel, int sizepix)
 
 int	get_pix_color(int col, int row, t_scene *scene, t_space space)
 {
-	int	img_ratio;
+	double	img_ratio;
 	double	angle;
 	t_ray	x;
 	double	y_shift;
@@ -30,24 +30,11 @@ int	get_pix_color(int col, int row, t_scene *scene, t_space space)
        	angle = tan(scene->pov->fov * M_PI / 360);
 	x.origin = scene->pov->place;
 	z_shift = (1 - (2.0 * (double)row / (double)scene->ysize));
-	z_shift *= img_ratio * angle;
+	z_shift *= img_ratio * angle * -1;
 	y_shift = angle * (1 - (2 * (double)col) / ((double)scene->xsize));
 	x.dir = space.u;
 	x.dir = add_v(scale_v(space.v, y_shift), x.dir);
-	x.dir = add_v(scale_v(space.w, z_shift), x.dir);
-	if (col == scene->xsize / 2 && row == scene->ysize / 2)
-		print_point(x.dir);
-/*	if (row == 0)
-	{
-		print_point(x.dir);
-		printf("%f, %f || 0\n", angle, y_shift);
-	}
-	if (pixieme % scene->xsize == 500)
-	{
-		print_point(x.dir);
-		printf("%f, %f || 500\n", angle, y_shift);
-	}
-*/
+	x.dir = add_v(scale_v(space.w, z_shift), x.dir);	
 	return (ray_color(x, scene));
 }
 

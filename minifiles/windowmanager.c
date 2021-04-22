@@ -68,9 +68,9 @@ int	win_keypress(int keycode, void *param)
 	else if (keycode == UP_KEY)
 		next->base = rotationfull(next->base, M_PI / 10.0, 2);
 	else if (keycode == LEFT_KEY)
-		next->base = rotationfull(next->base, M_PI / 10.0, 1);
-	else if (keycode == RIGHT_KEY)
 		next->base = rotationfull(next->base, M_PI / -10.0, 1);
+	else if (keycode == RIGHT_KEY)
+		next->base = rotationfull(next->base, M_PI / 10.0, 1);
 	else if (keycode == DOWN_KEY)
 		next->base = rotationfull(next->base, M_PI / -10.0, 2);	
 	else if (keycode == CAM_KEY)

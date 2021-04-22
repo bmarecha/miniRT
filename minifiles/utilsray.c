@@ -36,9 +36,9 @@ t_space	get_cam_space(t_point direction)
 	res.v = normalize(res.v);
 	res.w = prod_vect(res.u, res.v);
 	res.w = normalize(res.w);
-//	printf("Got the cam space :\n");
-//	print_point(res.u);
-//	print_point(res.v);
-//	print_point(res.w);
+	printf("Got the space :\n");
+	print_point(res.u);
+	print_point(res.v);
+	print_point(res.w);
 	return (res);
 }
