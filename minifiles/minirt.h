@@ -24,7 +24,7 @@
 # include "forms.h"
 # include "raysmaths.h"
 
-# define EPSILON 0.00001
+# define EPSILON 0.001
 
 typedef struct s_camera
 {
@@ -113,6 +113,7 @@ int				exit_prog(t_scene *scene);
 int				calculate(t_scene *scene);
 int				draw(t_scene *scene);
 t_colors			ray_color(t_ray r, t_scene *scene);
+t_colors			total_light(t_ray r, t_scene *scene);
 void				error_exit(int error);
 
 #endif

@@ -10,7 +10,11 @@ typedef struct s_point
 	double		z;
 }				t_point;
 
-typedef int			t_colors;
+typedef struct s_colors {
+	int r;
+	int g;
+	int b;
+}		t_colors;
 
 typedef struct s_space {
 	t_point	u;
@@ -57,13 +61,19 @@ typedef	struct s_triangle
 	t_plane		plane;
 }				t_triangle;
 
-void	point_create(char *x, char *y, char *z, t_point *point);
-void	create_plane(t_plane *new, char **infos, t_space base, t_colors c);
-int	add_sphere(char **infos, t_list **lst);
-int	add_plane(char **i, t_list **lst);
-int	add_square(char **i, t_list **lst);
-int	add_cylindre(char **infos, t_list **lst);
-int	add_triangle(char **i, t_list **lst);
-int	add_colors(int r, int g, int b, t_colors *colors);
+void		point_create(char *x, char *y, char *z, t_point *point);
+void		create_plane(t_plane *new, char **infos, t_space base, t_colors c);
+int		add_sphere(char **infos, t_list **lst);
+int		add_plane(char **i, t_list **lst);
+int		add_square(char **i, t_list **lst);
+int		add_cylindre(char **infos, t_list **lst);
+int		add_triangle(char **i, t_list **lst);
+int		add_colors(int r, int g, int b, t_colors *colors);
+int		cotoi(t_colors c);
+void		overflow_control(t_colors *c);
+t_colors	scal_color(t_colors c, float f);
+t_colors	add_color(t_colors c, t_colors a);
+t_colors	prod_color(t_colors c, t_colors a);
+t_colors	sup_color(t_colors c, t_colors a);
 
 #endif

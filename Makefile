@@ -12,10 +12,12 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/drawing.c \
 			minifiles/vect.c \
 			minifiles/rayons.c \
+			minifiles/raylight.c \
 			minifiles/forms/interplane.c \
 			minifiles/isometries.c \
 			minifiles/create_bmp.c \
-			minifiles/utilsray.c
+			minifiles/utilsray.c \
+			minifiles/utilsraycolor.c
 
 OBJS	=	${SRCS:.c=.o}
 

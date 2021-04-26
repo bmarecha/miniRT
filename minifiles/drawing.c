@@ -35,7 +35,7 @@ int	get_pix_color(int col, int row, t_scene *scene, t_space space)
 	x.dir = space.u;
 	x.dir = add_v(scale_v(space.v, y_shift), x.dir);
 	x.dir = add_v(scale_v(space.w, z_shift), x.dir);	
-	return (ray_color(x, scene));
+	return (cotoi(ray_color(x, scene)));
 }
 
 int	calculate(t_scene *scene)

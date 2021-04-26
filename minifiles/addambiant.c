@@ -62,6 +62,7 @@ int	add_light(char **infos, t_scene *scene)
 	if (add_colors(ft_atoi(infos[5]), ft_atoi(infos[6]),
 			ft_atoi(infos[7]), &(new->color)) == -1)
 		return (-1);
+	ft_lstadd_back(&(scene->lights), ft_lstnew(new));
 	return (0);
 }
 
@@ -95,7 +96,9 @@ int	add_colors(int r, int g, int b, t_colors *colors)
 {
 	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 		return (-1);
-	*colors = r * 1000000 + g * 1000 + b;
+	colors->r = r;
+	colors->g = g;
+	colors->b = b;
 	printf("%d,%d,%d\n", r, g, b);
 	return (0);
 }
