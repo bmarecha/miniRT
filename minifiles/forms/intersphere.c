@@ -21,12 +21,14 @@ static void		solve_sphere(t_sphere *sp, double x[2], t_point o, t_point d)
 	x[1] = (-k[1] - sqrt(disc)) / (2 * k[0]);
 }
 
-double			inter_sphere(void *p, t_ray *r)
+double			inter_sphere(void *p, t_impact *i)
 {
 	double	min;
 	double	x[2];
 	t_sphere	*sp;
+	t_ray		*r;
 
+	r = &(i->ray);
 	sp = (t_sphere *)p;
 	min = INFINITY;
 	solve_sphere(sp, x, r->origin, r->dir);
@@ -38,5 +40,6 @@ double			inter_sphere(void *p, t_ray *r)
 		return (INFINITY);
 	r->color = sp->color;
 	r->dir = scale_v(r->dir, min);
+	i->norm = less_v(add_v(r->dir, r->origin), sp->center);
 	return (min);
 }

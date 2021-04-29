@@ -113,7 +113,7 @@ int				exit_prog(t_scene *scene);
 int				calculate(t_scene *scene);
 int				draw(t_scene *scene);
 t_colors			ray_color(t_ray r, t_scene *scene);
-t_colors			total_light(t_ray r, t_scene *scene);
+t_colors			total_light(t_impact i, t_scene *scene);
 void				error_exit(int error);
 
 #endif

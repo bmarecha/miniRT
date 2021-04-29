@@ -1,13 +1,13 @@
 #include "minirt.h"
 
-static int	block_inlst(t_list *p, double (*f)(void *, t_ray *), t_ray r)
+static int	block_inlst(t_list *p, double (*f)(void *, t_impact *), t_ray r)
 {
-	t_ray	tmp;
-	double	dist_block;
+	t_impact	tmp;
+	double		dist_block;
 
 	while (p)
 	{
-		tmp = r;
+		tmp.ray = r;
 		dist_block = f(p->content, &tmp);
 		if (dist_block < 1 && dist_block > EPSILON)
 			return (1);
@@ -29,37 +29,38 @@ int		light_block(t_ray r, t_scene *scene)
 	return (0);
 }
 
-t_colors	one_light(t_light l, t_ray r, t_scene *scene)
+t_colors	one_light(t_light l, t_impact i, t_scene *scene)
 {
 	t_colors	res;
+	t_ray		r;
+	double		ori;
 
+	r = i.ray;
 	res.r = 0;
 	res.g = 0;
 	res.b = 0;
 	r.dir = less_v(l.place, r.origin);
 	if (light_block(r, scene))
 		return (res);
-	return (scal_color(l.color, l.rate));
+	ori = prod_scal(r.dir, i.norm)/(sqrt(prod_scal(i.norm,i.norm))*sqrt(prod_scal(r.dir,r.dir)));
+	ori = 0.1 + ori * 0.9;
+	return (scal_color(l.color, l.rate * ori));
 }
 
-t_colors	total_light(t_ray r, t_scene *scene)
+t_colors	total_light(t_impact i, t_scene *scene)
 {
 	t_list		*p;
 	t_colors	res;
 	t_light		*curr;
 
 	res = scal_color(scene->ambiantc, scene->ambiantr);
-	r.origin = add_v(r.origin, r.dir);
-	if (!scene->lights)
-		return (res);
+	i.ray.origin = add_v(i.ray.origin, i.ray.dir);
 	p = scene->lights;
-	curr = p->content;
-	res = sup_color(res, one_light(*curr, r, scene));
-	while (p->next)
+	while (p)
 	{
-		p = p->next;
 		curr = p->content;
-		res = sup_color(res, one_light(*curr, r, scene));
+		res = sup_color(res, one_light(*curr, i, scene));
+		p = p->next;
 	}
 	return (res);
 }
