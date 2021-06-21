@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-static double	solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
+double	solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
 {
 	double	ir;
 

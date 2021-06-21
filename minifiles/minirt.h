@@ -87,6 +87,7 @@ void				scene_free(t_scene *scene);
 t_point				rotation(t_point vect, double angle, int axis);
 t_space				rotationfull(t_space base, double angle, int axis);
 t_point				translation(t_point vect, double shift, int axis);
+double				normv(t_point u);
 t_point				normalize(t_point u);
 void				print_point(t_point p);
 

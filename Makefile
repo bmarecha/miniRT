@@ -4,6 +4,7 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/forms/addforms.c \
 			minifiles/forms/create_forms.c \
 			minifiles/forms/intersphere.c \
+			minifiles/forms/intercyl.c \
 			minifiles/splitrt.c \
 			minifiles/addambiant.c \
 			minifiles/utilsrt.c \

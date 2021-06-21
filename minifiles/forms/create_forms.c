@@ -1,10 +1,16 @@
-#include "minirt.h"
+#include "forms.h"
 
-void	create_plane(t_plane *new, char **infos, t_space base, t_colors c)
+void	create_plane(t_plane *n, char **infos, t_space base, t_colors c)
 {
-	new->color = c;
-	new->norm = base.u;
-	point_create(infos[0], infos[1], infos[2], &(new->start));
-	new->u = base.v;
-	new->v = base.w;
+	n->color = c;
+	n->norm = base.u;
+	point_create(infos[0], infos[1], infos[2], &(n->start));
+	n->u = base.v;
+	n->v = base.w;
+}
+
+void	create_circle(t_circle *n, t_plane plan, double radius)
+{
+	n->plane = plan;
+	n->radius = radius;
 }

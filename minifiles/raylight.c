@@ -26,6 +26,8 @@ int		light_block(t_ray r, t_scene *scene)
 		return (1);
 	if (block_inlst(scene->spheres, &inter_sphere, r))
 		return (1);
+	if (block_inlst(scene->cylindres, &inter_cyl, r))
+		return (1);
 	return (0);
 }
 
@@ -34,6 +36,7 @@ t_colors	one_light(t_light l, t_impact i, t_scene *scene)
 	t_colors	res;
 	t_ray		r;
 	double		ori;
+	double		dist;
 
 	r = i.ray;
 	res.r = 0;
@@ -42,9 +45,13 @@ t_colors	one_light(t_light l, t_impact i, t_scene *scene)
 	r.dir = less_v(l.place, r.origin);
 	if (light_block(r, scene))
 		return (res);
-	ori = prod_scal(r.dir, i.norm)/(sqrt(prod_scal(i.norm,i.norm))*sqrt(prod_scal(r.dir,r.dir)));
-	ori = 0.1 + ori * 0.9;
-	return (scal_color(l.color, l.rate * ori));
+	ori = prod_scal(r.dir, i.norm)/(normv(i.norm)*normv(r.dir));
+	if (ori < 0)
+		ori = 0;
+	else
+		ori = 0.2 + ori * 0.8;
+	dist = 2 * l.rate / sqrt(sqrt(normv(r.dir)));
+	return (scal_color(l.color, dist * ori));
 }
 
 t_colors	total_light(t_impact i, t_scene *scene)

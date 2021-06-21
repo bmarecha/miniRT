@@ -68,11 +68,11 @@ int	add_square(char **i, t_list **lst)
 	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5] || !i[6] || !i[7]
 		|| !i[8] || !i[9] || !i[10] || i[11] || !lst)
 		return (-1);
-	new = malloc(sizeof(t_square));
-	if (!new || add_colors(atoi(i[8]), atoi(i[9]), atoi(i[10]), &c) == -1)
-		return (-1);
 	point_create(i[4], i[5], i[6], &(norm));
 	if (norm.x * norm.x + norm.y * norm.y + norm.z * norm.z > 1)
+		return (-1);
+	new = malloc(sizeof(t_square));
+	if (!new || add_colors(atoi(i[8]), atoi(i[9]), atoi(i[10]), &c) == -1)
 		return (-1);
 	base = get_cam_space(norm);
 	create_plane(&(new->plane), i + 1, base, c);
@@ -81,34 +81,31 @@ int	add_square(char **i, t_list **lst)
 	return (0);
 }
 
-int	add_cylindre(char **infos, t_list **lst)
+int	add_cylindre(char **i, t_list **lst)
 {
 	t_cylindre	*new;
+	t_point		norm;
+	t_space		base;
+	t_colors	c;
+	t_plane		copy;
 
-	if (!infos[1] || !infos[2] || !infos[3] || !infos[4] || !infos[5]
-		|| !infos[6] || !infos[7] || !infos[8] || !infos[9]
-		|| !infos[10] || !infos[11] || infos[12] || !lst)
+	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5] || !i[6] || !i[7]
+		|| !i[8] || !i[9] || !i[10] || !i[11] || i[12] || !lst)
+		return (-1);
+	point_create(i[4], i[5], i[6], &(norm));
+	if (norm.x * norm.x + norm.y * norm.y + norm.z * norm.z > 1)
 		return (-1);
 	new = malloc(sizeof(t_cylindre));
-	if (!new)
+	if (!new || add_colors(atoi(i[9]), atoi(i[10]), atoi(i[11]), &c) == -1)
 		return (-1);
-	if (add_colors(atoi(infos[9]), atoi(infos[10]), atoi(infos[11]),
-			&(new->color)) == -1)
-		return (-1);
-	point_create(infos[1], infos[2], infos[3], &(new->start));
-	point_create(infos[4], infos[5], infos[6], &(new->way));
-	if (!(new->way.x * new->way.x > 1 || new->way.y * new->way.y > 1
-			|| new->way.z * new->way.z > 1))
-	{
-		free(new);
-		return (-1);
-	}
-	new->diameter = ft_atof(infos[7]);
-	new->height = ft_atof(infos[8]);
-	if (*lst)
-		ft_lstadd_front(lst, ft_lstnew(new));
-	else
-		*lst = ft_lstnew(new);
+	base = get_cam_space(norm);
+	new->height = ft_atof(i[8]);
+	create_plane(&copy, i + 1, base, c); 
+	create_circle(&(new->bottom), copy, ft_atof(i[7]) / 2);
+	copy.start = add_v(copy.start, scale_v(copy.norm, new->height));
+	create_circle(&(new->top), copy, new->bottom.radius);
+	new->color = c;
+	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }
 

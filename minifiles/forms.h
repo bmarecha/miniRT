@@ -44,11 +44,16 @@ typedef	struct s_square
 	double		height;
 }				t_square;
 
+typedef struct s_circle
+{
+	t_plane		plane;
+	double		radius;
+}				t_circle;
+
 typedef	struct s_cylindre
 {
-	t_point		start;
-	t_point		way;
-	double		diameter;
+	t_circle	top;
+	t_circle	bottom;
 	double		height;
 	t_colors	color;
 }				t_cylindre;
@@ -62,7 +67,8 @@ typedef	struct s_triangle
 }				t_triangle;
 
 void		point_create(char *x, char *y, char *z, t_point *point);
-void		create_plane(t_plane *new, char **infos, t_space base, t_colors c);
+void		create_plane(t_plane *n, char **infos, t_space base, t_colors c);
+void		create_circle(t_circle *n, t_plane plan, double radius);
 int		add_sphere(char **infos, t_list **lst);
 int		add_plane(char **i, t_list **lst);
 int		add_square(char **i, t_list **lst);

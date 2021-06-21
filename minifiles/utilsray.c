@@ -5,12 +5,17 @@ void	print_point(t_point p)
 	printf("(%f, %f, %f)\n", p.x, p.y, p.z);
 }
 
+double	normv(t_point u)
+{
+	return (sqrt(prod_scal(u,u)));
+}
+
 t_point normalize(t_point u)
 {
 	double	norm;
 	t_point	res;
 
-	norm = sqrt(prod_scal(u, u));
+	norm = normv(u);
 	res.x = u.x / norm;
 	res.y = u.y / norm;
 	res.z = u.z / norm;

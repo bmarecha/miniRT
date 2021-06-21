@@ -85,12 +85,11 @@ int	win_keypress(int keycode, void *param)
 }
 
 void	window_run(t_scene *scene)
-{
+{	
 	mlx_loop_hook(scene->wink, draw, scene);
 	mlx_key_hook(scene->wink, win_keypress, scene);
-	mlx_hook(scene->wink, 17, (1L << 17), exit_prog, scene);
-	mlx_loop(scene->mlink);
-}
+	mlx_hook(scene->wink, 33, 0, exit_prog, scene);
+	mlx_loop(scene->mlink);}
 
 void	window_destroy(t_scene *scene)
 {
@@ -102,7 +101,14 @@ void	window_destroy(t_scene *scene)
 
 int	window_start(t_scene *scene, int save)
 {
+	int display_res[2];
+
 	scene->mlink = mlx_init();
+	mlx_get_screen_size(scene->mlink, display_res, display_res + 1);
+	if (display_res[0] < scene->xsize)
+		scene->xsize = display_res[0];
+	if (display_res[1] < scene->ysize)
+		scene->ysize = display_res[1];
 	if (!scene->mlink)
 		return (EXIT_FAILURE);
 	scene->wink = mlx_new_window(scene->mlink, scene->xsize, scene->ysize, "Tests");
@@ -119,9 +125,6 @@ int	window_start(t_scene *scene, int save)
 	if (save)
 		export_bmp("miniRT_save", scene);
 	draw(scene);
-	mlx_loop_hook(scene->wink, draw, scene);
-	mlx_key_hook(scene->wink, win_keypress, scene);
-	mlx_hook(scene->wink, 33, 0, exit_prog, scene);
-	mlx_loop(scene->mlink);
+	window_run(scene);
 	return (EXIT_SUCCESS);	
 }
