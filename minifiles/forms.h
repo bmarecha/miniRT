@@ -63,12 +63,15 @@ typedef	struct s_triangle
 	t_point		first;
 	t_point		second;
 	t_point		third;
+	t_point		inv_u;
+	t_point		inv_v;
 	t_plane		plane;
 }				t_triangle;
 
 void		point_create(char *x, char *y, char *z, t_point *point);
 void		create_plane(t_plane *n, char **infos, t_space base, t_colors c);
 void		create_circle(t_circle *n, t_plane plan, double radius);
+void		create_inv_vect(t_point u, t_point v, t_point *inv_u, t_point *inv_v);
 int		add_sphere(char **infos, t_list **lst);
 int		add_plane(char **i, t_list **lst);
 int		add_square(char **i, t_list **lst);

@@ -16,6 +16,10 @@ typedef struct s_impact
         t_ray		ray;
 }		t_impact;
 
+
+double				normv(t_point u);
+t_point				normalize(t_point u);
+void				print_point(t_point p);
 double				prod_scal(t_point u, t_point v);
 t_point                         prod_vect(t_point u, t_point v);
 t_point                         scale_v(t_point v, double l);

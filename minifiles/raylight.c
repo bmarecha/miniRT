@@ -46,8 +46,8 @@ t_colors	one_light(t_light l, t_impact i, t_scene *scene)
 	if (light_block(r, scene))
 		return (res);
 	ori = prod_scal(r.dir, i.norm)/(normv(i.norm)*normv(r.dir));
-	if (ori < 0)
-		ori = 0;
+	if (ori < EPSILON)
+		return res;
 	else
 		ori = 0.2 + ori * 0.8;
 	dist = 2 * l.rate / sqrt(sqrt(normv(r.dir)));

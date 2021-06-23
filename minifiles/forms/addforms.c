@@ -113,7 +113,6 @@ int	add_triangle(char **i, t_list **lst)
 {
 	t_triangle	*new;
 	t_space		base;
-	t_point		norm;
 	t_colors	c;
 
 	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5]
@@ -128,10 +127,11 @@ int	add_triangle(char **i, t_list **lst)
 	point_create(i[1], i[2], i[3], &(new->first));
 	point_create(i[4], i[5], i[6], &(new->second));
 	point_create(i[7], i[8], i[9], &(new->third));
-	norm = prod_vect(less_v(new->second, new->first),
-			less_v(new->third, new->second));
-	base = get_cam_space(norm);
+	base.v = less_v(new->second, new->first);
+	base.w = less_v(new->third, new->first);
+	base.u = normalize(prod_vect(base.v, base.w));
 	create_plane(&(new->plane), i + 1, base, c);
+	create_inv_vect(base.v, base.w, &(new->inv_u), &(new->inv_v));
 	ft_lstadd_front(lst, ft_lstnew(new));
 	return (0);
 }

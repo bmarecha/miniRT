@@ -57,17 +57,19 @@ double	inter_square(void *p, t_impact *i)
 	return (ic[0]);
 }
 
-static int	is_in_tria(t_triangle t, double ori, t_point start, t_point impact)
+static int	is_in_tria(t_triangle t, t_point start, t_point impact)
 {
 	t_point		u;
 	t_point		v;
+	t_point		z;
 	double		iu;
 	double		iv;
 
-	u = less_v(t.second, t.first);
-	v = less_v(t.third, t.first);
-	iu = prod_scal(prod_vect(start,v),impact)/ori;
-	iv = prod_scal(prod_vect(u, start),impact)/ori;
+	u = t.inv_u;
+	v = t.inv_v;
+	z = less_v(impact, start);
+	iu = prod_scal(z,u);
+	iv = prod_scal(z,v);
 	if (iu < 0 || iv < 0 || iv + iu > 1)
 		return (0);
 	return (1);
@@ -88,10 +90,9 @@ double	inter_triang(void *p, t_impact *i)
 	if(ir == INFINITY)
 		return (INFINITY);
 	//Maintenant tester si c'est dans le triangle
-	ori *= ir;
-	if (!is_in_tria(*t, ori, start, r->dir))
-		return (INFINITY);
 	r->dir = scale_v(r->dir, ir);
+	if (!is_in_tria(*t, start, r->dir))
+		return (INFINITY);
 	r->color = t->plane.color;
 	i->norm = t->plane.norm;
 	return ir;

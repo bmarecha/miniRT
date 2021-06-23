@@ -1,4 +1,17 @@
 #include "forms.h"
+#include "raysmaths.h"
+#include <stdio.h>
+
+void	create_inv_vect(t_point u, t_point v, t_point *inv_u, t_point *inv_v)
+{
+	t_point w;
+
+	w = prod_vect(u, v);
+	*inv_u = prod_vect(v, w);
+	*inv_u = scale_v(*inv_u, 1 / prod_scal(*inv_u, u));
+	*inv_v = prod_vect(w,u);
+	*inv_v = scale_v(*inv_v, 1 / prod_scal(*inv_v, v));
+}
 
 void	create_plane(t_plane *n, char **infos, t_space base, t_colors c)
 {
