@@ -43,13 +43,14 @@ double	inter_square(void *p, t_impact *i)
 
 	r = &(i->ray);
 	s = (t_square *)p;
-	start = s->plane.start;
+	start = less_v(s->plane.start, r->origin);
 	ic[0] = solve_plan(&(s->plane), r, &ori, start);
 	if (ic[0] == INFINITY)
 		return (INFINITY);
-	ic[1] = prod_scal(prod_vect(start,s->plane.u),r->dir)/ori;
-	ic[2] = prod_scal(prod_vect(start,s->plane.v),r->dir)/ori;
-	if (ic[1] < 0 || ic[2] < 0 || ic[1] < s->height || ic[2] < s->height)
+	start = less_v(scale_v(r->dir, ic[0]), start);
+	ic[1] = prod_scal(start, s->inv_u);
+	ic[2] = prod_scal(start, s->inv_v);
+	if (ic[1] < 0 || ic[2] < 0 || ic[1] > s->height || ic[2] > s->height)
 		return (INFINITY);
 	r->dir = scale_v(r->dir, ic[0]);
 	r->color = s->plane.color;

@@ -75,6 +75,7 @@ int	add_square(char **i, t_list **lst)
 	if (!new || add_colors(atoi(i[8]), atoi(i[9]), atoi(i[10]), &c) == -1)
 		return (-1);
 	base = get_cam_space(norm);
+	create_inv_vect(base.v, base.w, &(new->inv_u), &(new->inv_v));
 	create_plane(&(new->plane), i + 1, base, c);
 	new->height = ft_atof(i[7]);
 	ft_lstadd_front(lst, ft_lstnew(new));

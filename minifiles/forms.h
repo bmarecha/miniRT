@@ -41,6 +41,8 @@ typedef	struct s_plane
 typedef	struct s_square
 {
 	t_plane		plane;
+	t_point		inv_u;
+	t_point		inv_v;
 	double		height;
 }				t_square;
 
