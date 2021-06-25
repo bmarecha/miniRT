@@ -88,7 +88,7 @@ t_point				rotation(t_point vect, double angle, int axis);
 t_space				rotationfull(t_space base, double angle, int axis);
 t_point				translation(t_point vect, double shift, int axis);
 
-void				export_bmp(char *file, t_scene *scene);
+int				export_bmp(char *file, t_scene *scene);
 
 /*
 ** Parsing Fonctions

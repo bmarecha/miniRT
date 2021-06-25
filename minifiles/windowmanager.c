@@ -123,7 +123,7 @@ int	window_start(t_scene *scene, int save)
 		&(scene->img->sizeline), &(scene->img->endian));
 	calculate(scene);
 	if (save)
-		export_bmp("miniRT_save", scene);
+		return (export_bmp("miniRT_save.bmp", scene));
 	draw(scene);
 	window_run(scene);
 	return (EXIT_SUCCESS);	
