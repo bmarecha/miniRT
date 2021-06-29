@@ -45,6 +45,8 @@ static int	closest_intersect(t_ray r, t_scene *scene, t_impact *res)
 		sizemin = sqrt(prod_scal(res->ray.dir, res->ray.dir));
 	if (sizemin == INFINITY)
 		return (0);
+	if (prod_scal(res->norm, res->ray.dir) > 0)
+		res->norm = scale_v(res->norm, -1);
 	return (1);
 }
 

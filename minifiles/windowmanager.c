@@ -53,9 +53,9 @@ int	win_keypress(int keycode, void *param)
 	if (keycode == Z_KEY)
 		next->place = translation(next->place, 1.0, 0);
 	else if (keycode == Q_KEY)
-		next->place = translation(next->place, 1.0, 1);
-	else if (keycode == D_KEY)
 		next->place = translation(next->place, -1.0, 1);
+	else if (keycode == D_KEY)
+		next->place = translation(next->place, 1.0, 1);
 	else if (keycode == S_KEY)
 		next->place = translation(next->place, -1.0, 0);
 	else if (keycode == A_KEY)
