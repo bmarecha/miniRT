@@ -12,15 +12,16 @@
 
 #include "libft.h"
 
-static char		*ft_strndup(const char *src, int n)
+static char	*ft_strndup(const char *src, int n)
 {
-	int		i;
+	int	i;
 	char	*cpy;
 
 	i = 0;
 	while (src[i] && i < n)
 		i++;
-	if ((cpy = malloc(sizeof(char) * (i + 1))) == NULL)
+	cpy = malloc(sizeof(char) * (i + 1));
+	if (cpy == NULL)
 		return (NULL);
 	i = 0;
 	while (src[i] && i < n)
@@ -32,11 +33,11 @@ static char		*ft_strndup(const char *src, int n)
 	return (cpy);
 }
 
-static int		ft_word_count(const char *str, char c)
+static int	ft_word_count(const char *str, char c)
 {
-	int i;
-	int inside;
-	int words;
+	int	i;
+	int	inside;
+	int	words;
 
 	i = 0;
 	inside = 0;
@@ -73,7 +74,8 @@ char			**ft_split(char const *str, char c)
 	if (str == NULL)
 		return (NULL);
 	words = ft_word_count(str, c);
-	if ((split = (char **)malloc(sizeof(char *) * (words + 1))) == NULL)
+	split = (char **)malloc(sizeof(char *) * (words + 1));
+	if (split == NULL)
 		return (NULL);
 	i = 0;
 	length[1] = 0;

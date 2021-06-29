@@ -14,7 +14,7 @@
 
 static int	is_in(char c, char const *charset)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (charset[++i])
@@ -23,7 +23,7 @@ static int	is_in(char c, char const *charset)
 	return (-1);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		i;
 	int		j;
@@ -44,7 +44,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 		while (is_in(s1[i + --j], set) != -1)
 			;
 	}
-	if ((res = malloc(++j + 1)) == NULL)
+	res = malloc(++j + 1);
+	if (res == NULL)
 		return (NULL);
 	res[j] = '\0';
 	while (j--)

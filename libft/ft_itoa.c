@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		sizefinder(long *n)
+static int	sizefinder(long *n)
 {
 	long	dix;
 	int		size;
@@ -32,7 +32,7 @@ static int		sizefinder(long *n)
 	return (size);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	long	dix;
 	long	n2;
@@ -41,7 +41,8 @@ char			*ft_itoa(int n)
 
 	n2 = (long)n;
 	size = sizefinder(&n2);
-	if ((nbr = malloc(size + 1)) == NULL)
+	nbr = malloc(size + 1);
+	if (nbr == NULL)
 		return (NULL);
 	nbr[size] = '\0';
 	dix = 10;

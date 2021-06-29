@@ -4,13 +4,14 @@ void	*ft_lstget(t_list *lst, int i)
 {
 	t_list	*p;
 
-	if ((p = lst) == NULL)
+	p = lst;
+	if (p == NULL)
 		return (NULL);
 	while (p->next && i--)
 	{
-		p = p->next;	
+		p = p->next;
 	}
 	if (i > 0)
-		return NULL;
-	return p->content;
+		return (NULL);
+	return (p->content);
 }
