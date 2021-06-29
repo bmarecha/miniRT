@@ -52,9 +52,9 @@ int	read_line(char **infos, t_scene *scene)
 		res = add_sizes(infos, scene);
 	else if (!ft_strcmp(infos[0], "A") && !scene->ambiantdef)
 		res = add_ambiantlight(infos, scene);
-	else if (!ft_strcmp(infos[0], "c"))
+	else if (!ft_strcmp(infos[0], "C"))
 		res = add_camera(infos, scene);
-	else if (!ft_strcmp(infos[0], "l"))
+	else if (!ft_strcmp(infos[0], "L"))
 		res = add_light(infos, scene);
 	else if (!ft_strcmp(infos[0], "sp"))
 		res = add_sphere(infos, &(scene->spheres));
@@ -70,15 +70,12 @@ int	read_line(char **infos, t_scene *scene)
 
 int	read_file(int fd, t_scene *scene)
 {
-	int		res;
 	char	**line;
 	char	**infos;
 
 	line = malloc(1);
-	res = get_next_line(fd, line);
-	while (res == 1)
+	while (get_next_line(fd, line) == 1)
 	{
-		//printf("[%d] ||| %s\n", res, *line);
 		infos = mini_split(*line, "\n\t\v ,");
 		free(*line);
 		if (read_line(infos, scene) == -1)
@@ -87,12 +84,16 @@ int	read_file(int fd, t_scene *scene)
 			close(fd);
 			return (-1);
 		}
-		res = get_next_line(fd, line);
 	}
 	free(line);
 	close(fd);
-	if (scene->xsize <= 0 || scene->ysize <= 0 || !scene->cams)
+	if (!scene->cams)
 		return (-1);
+	if (scene->xsize == 0 || scene->ysize == 0)
+	{
+		scene->xsize = 1920;
+		scene->ysize = 1080;
+	}
 	return (0);
 }
 

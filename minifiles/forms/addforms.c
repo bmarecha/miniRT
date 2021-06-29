@@ -32,10 +32,10 @@ int	add_sphere(char **i, t_list **lst)
 
 int	add_plane(char **i, t_list **lst)
 {
-	t_plane	*new;
-	t_colors color;
-	t_point u;
-	t_space base;
+	t_plane		*new;
+	t_colors	color;
+	t_point		u;
+	t_space		base;
 
 	u.x = atof(i[4]);
 	u.y = atof(i[5]);

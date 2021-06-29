@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-static void		solve_sphere(t_sphere *sp, double x[2], t_point o, t_point d)
+static void	solve_sphere(t_sphere *sp, double x[2], t_point o, t_point d)
 {
 	double	disc;
 	t_point	oc;
@@ -21,10 +21,10 @@ static void		solve_sphere(t_sphere *sp, double x[2], t_point o, t_point d)
 	x[1] = (-k[1] - sqrt(disc)) / (2 * k[0]);
 }
 
-double			inter_sphere(void *p, t_impact *i)
+double	inter_sphere(void *p, t_impact *i)
 {
-	double	min;
-	double	x[2];
+	double		min;
+	double		x[2];
 	t_sphere	*sp;
 	t_ray		*r;
 

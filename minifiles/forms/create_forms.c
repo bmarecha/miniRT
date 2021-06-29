@@ -4,7 +4,7 @@
 
 void	create_inv_vect(t_point u, t_point v, t_point *inv_u, t_point *inv_v)
 {
-	t_point w;
+	t_point	w;
 
 	w = prod_vect(u, v);
 	*inv_u = prod_vect(v, w);

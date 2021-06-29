@@ -45,12 +45,12 @@ typedef struct s_light
 typedef struct s_image
 {
 	char	*data;
-	int	sizeline;
-	int	endian;
-	int	sizepix;
+	int		sizeline;
+	int		endian;
+	int		sizepix;
 }				t_image;
 
-typedef	struct s_scene
+typedef struct s_scene
 {
 	int			xsize;
 	int			ysize;
@@ -70,7 +70,7 @@ typedef	struct s_scene
 	t_list		*triangles;
 	t_camera	*pov;
 	t_image		*img;
-	int		changed;
+	int			changed;
 	char		*data;	
 }				t_scene;
 

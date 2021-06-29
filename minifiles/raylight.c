@@ -16,7 +16,7 @@ static int	block_inlst(t_list *p, double (*f)(void *, t_impact *), t_ray r)
 	return (0);
 }
 
-int		light_block(t_ray r, t_scene *scene)
+static int	light_block(t_ray r, t_scene *scene)
 {
 	if (block_inlst(scene->triangles, &inter_triang, r))
 		return (1);

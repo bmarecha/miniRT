@@ -1,19 +1,19 @@
 #include "minirt.h"
 
-double	solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
+double		solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
 {
 	double	ir;
 
-	*ori = prod_scal(pl->norm,r->dir);
+	*ori = prod_scal(pl->norm, r->dir);
 	if (!*ori)
-		return INFINITY;
-	ir = prod_scal(pl->norm, s)/(*ori);
+		return (INFINITY);
+	ir = prod_scal(pl->norm, s) / (*ori);
 	if (ir <= 0)
-		return INFINITY;
+		return (INFINITY);
 	return (ir);
 }
 
-double	inter_pla(void *p, t_impact *i)
+double		inter_pla(void *p, t_impact *i)
 {
 	t_point	starts;
 	double	ir;
@@ -33,7 +33,7 @@ double	inter_pla(void *p, t_impact *i)
 	return (ir);
 }
 
-double	inter_square(void *p, t_impact *i)
+double		inter_square(void *p, t_impact *i)
 {
 	t_square	*s;
 	double		ori;
@@ -76,7 +76,7 @@ static int	is_in_tria(t_triangle t, t_point start, t_point impact)
 	return (1);
 }
 
-double	inter_triang(void *p, t_impact *i)
+double		inter_triang(void *p, t_impact *i)
 {
 	t_point		start;
 	t_triangle	*t;
@@ -90,7 +90,6 @@ double	inter_triang(void *p, t_impact *i)
 	ir = solve_plan(&(t->plane), r, &ori, start);
 	if(ir == INFINITY)
 		return (INFINITY);
-	//Maintenant tester si c'est dans le triangle
 	r->dir = scale_v(r->dir, ir);
 	if (!is_in_tria(*t, start, r->dir))
 		return (INFINITY);

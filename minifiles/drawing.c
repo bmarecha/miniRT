@@ -1,5 +1,4 @@
 #include "minirt.h"
-int g_i = 0;
 
 void	assign_color(int color, char *pixel, int sizepix)
 {
@@ -27,23 +26,23 @@ int	get_pix_color(int col, int row, t_scene *scene, t_space space)
 	double	z_shift;
 
 	img_ratio = ((double)scene->ysize) / (double)scene->xsize;
-       	angle = tan(scene->pov->fov * M_PI / 360);
+	angle = tan(scene->pov->fov * M_PI / 360);
 	x.origin = scene->pov->place;
 	z_shift = (1 - (2.0 * (double)row / (double)scene->ysize));
 	z_shift *= img_ratio * angle * -1;
 	y_shift = angle * (1 - (2 * (double)col) / ((double)scene->xsize));
 	x.dir = space.u;
 	x.dir = add_v(scale_v(space.v, y_shift), x.dir);
-	x.dir = add_v(scale_v(space.w, z_shift), x.dir);	
+	x.dir = add_v(scale_v(space.w, z_shift), x.dir);
 	return (cotoi(ray_color(x, scene)));
 }
 
 int	calculate(t_scene *scene)
 {
-	int		i;
-	int		color;
-	t_space		space;
-	t_image		img;
+	int	i;
+	int	color;
+	t_space	space;
+	t_image	img;
 
 	i = 0;
 	img = *(scene->img);
@@ -63,10 +62,8 @@ int	calculate(t_scene *scene)
 
 int	draw(t_scene *scene)
 {
-	printf("TryDraw");
 	if (!scene->changed || !scene->ilink)
 		return (1);
-	printf("drawing\n");
 	mlx_put_image_to_window(scene->mlink, scene->wink, scene->ilink, 0, 0);
 	scene->changed = 0;
 	return (1);

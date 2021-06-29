@@ -76,7 +76,7 @@ char	**mini_split(char *str, char *charset)
 	int		words;
 	int		i;
 	int		length[2];
-	
+
 	if (!str)
 		return (NULL);
 	words = ft_word_count(str, charset);

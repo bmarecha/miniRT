@@ -18,8 +18,8 @@ void	assign_int(char *octets, int nbr)
 
 void	header_bmp(char *data, t_scene *scene, int size)
 {
-	int i;
-	char *img;
+	int	i;
+	char	*img;
 
 	data[0] = TYPE_BITMAP1;
 	data[1] = TYPE_BITMAP2;
@@ -58,7 +58,6 @@ int	export_bmp(char *filename, t_scene *scene)
 	while (i < size + HEAD_SIZE + 1)
 		data[i++] = 0;
 	header_bmp(data, scene, size);
-//	fill_bmp(data, scene);
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	if (fd <= 0)
 		error_exit(-5);

@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int		gnl_strrchr(char *str, char c)
+int	gnl_strrchr(char *str, char c)
 {
 	if (*str == c)
 		return (1);
@@ -34,7 +34,8 @@ char	*ft_stradd(char *dest, const char *src)
 		i++;
 	while (src[b])
 		b++;
-	if (!(res = malloc(i + b + 1)))
+	res = malloc(i + b + 1);
+	if (!res)
 		return (NULL);
 	res[i + b] = 0;
 	while (b--)
@@ -55,7 +56,8 @@ char	*ft_cpyto(char *src, char c)
 		return (NULL);
 	while (src[i] && src[i] != c)
 		i++;
-	if (!(cpy = malloc(i + 1)))
+	cpy = malloc(i + 1);
+	if (!cpy)
 		return (NULL);
 	cpy[i] = '\0';
 	while (i-- > 0)
@@ -78,7 +80,8 @@ char	*ft_resetto(char *str, char c)
 		else
 			j++;
 	}
-	if (!(res = malloc(j + 1)))
+	res = malloc(j + 1);
+	if (!res)
 	{
 		free(str);
 		return (NULL);

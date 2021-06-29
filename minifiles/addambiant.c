@@ -21,7 +21,7 @@ int	add_sizes(char **infos, t_scene *scene)
 		return (-1);
 	x = ft_atoi(infos[1]);
 	y = ft_atoi(infos[2]);
-	if (x == 0 || y == 0)
+	if (x <= 0 || y <= 0)
 		return (-1);
 	scene->xsize = x;
 	scene->ysize = y;

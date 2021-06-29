@@ -28,8 +28,8 @@
 
 void	change_cam(t_camera **pov, t_list *cams)
 {
-	t_camera *next;
-	static int i = 0;
+	t_camera	*next;
+	static int	i = 0;
 
 	i++;
 	if (i >= ft_lstsize(cams))
@@ -38,10 +38,7 @@ void	change_cam(t_camera **pov, t_list *cams)
 	if (next)
 	{
 		*pov = next;
-		printf("Changed to camera n°%d\n", i);
 	}
-	else
-		printf("no cams available\n");
 }
 
 int	win_keypress(int keycode, void *param)
@@ -72,13 +69,11 @@ int	win_keypress(int keycode, void *param)
 	else if (keycode == RIGHT_KEY)
 		next->base = rotationfull(next->base, M_PI / 10.0, 1);
 	else if (keycode == DOWN_KEY)
-		next->base = rotationfull(next->base, M_PI / -10.0, 2);	
+		next->base = rotationfull(next->base, M_PI / -10.0, 2);
 	else if (keycode == CAM_KEY)
 		change_cam(&(scene->pov), scene->cams);
-	else {
-		printf("Keycode : %d, posx %f\n", keycode, scene->pov->place.x);
+	else
 		return (0);
-	}
 	calculate(scene);
 	draw(scene);
 	return (0);
@@ -89,7 +84,8 @@ void	window_run(t_scene *scene)
 	mlx_loop_hook(scene->wink, draw, scene);
 	mlx_key_hook(scene->wink, win_keypress, scene);
 	mlx_hook(scene->wink, 33, 0, exit_prog, scene);
-	mlx_loop(scene->mlink);}
+	mlx_loop(scene->mlink);
+}
 
 void	window_destroy(t_scene *scene)
 {
@@ -101,7 +97,7 @@ void	window_destroy(t_scene *scene)
 
 int	window_start(t_scene *scene, int save)
 {
-	int display_res[2];
+	int	display_res[2];
 
 	scene->mlink = mlx_init();
 	mlx_get_screen_size(scene->mlink, display_res, display_res + 1);
@@ -111,7 +107,8 @@ int	window_start(t_scene *scene, int save)
 		scene->ysize = display_res[1];
 	if (!scene->mlink)
 		return (EXIT_FAILURE);
-	scene->wink = mlx_new_window(scene->mlink, scene->xsize, scene->ysize, "Tests");
+	scene->wink = mlx_new_window(scene->mlink,
+		scene->xsize, scene->ysize, "RT");
 	scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize);
 	if (!scene->wink || !scene->ilink)
 		return (EXIT_FAILURE);

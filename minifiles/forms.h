@@ -10,10 +10,11 @@ typedef struct s_point
 	double		z;
 }				t_point;
 
-typedef struct s_colors {
-	int r;
-	int g;
-	int b;
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
 }		t_colors;
 
 typedef struct s_space {
@@ -52,7 +53,7 @@ typedef struct s_circle
 	double		radius;
 }				t_circle;
 
-typedef	struct s_cylindre
+typedef struct s_cylindre
 {
 	t_circle	top;
 	t_circle	bottom;
@@ -60,7 +61,7 @@ typedef	struct s_cylindre
 	t_colors	color;
 }				t_cylindre;
 
-typedef	struct s_triangle
+typedef struct s_triangle
 {
 	t_point		first;
 	t_point		second;
@@ -73,7 +74,8 @@ typedef	struct s_triangle
 void		point_create(char *x, char *y, char *z, t_point *point);
 void		create_plane(t_plane *n, char **infos, t_space base, t_colors c);
 void		create_circle(t_circle *n, t_plane plan, double radius);
-void		create_inv_vect(t_point u, t_point v, t_point *inv_u, t_point *inv_v);
+void		create_inv_vect(t_point u, t_point v,
+			t_point *inv_u, t_point *inv_v);
 int		add_sphere(char **infos, t_list **lst);
 int		add_plane(char **i, t_list **lst);
 int		add_square(char **i, t_list **lst);

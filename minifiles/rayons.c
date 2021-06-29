@@ -17,7 +17,7 @@ static double	closest_inlst(t_list *lst, double (*f)(void *, t_impact *),
 	while (p)
 	{
 		tmp.ray = r;
-		if (f(p->content, &tmp)*len < sizemin)
+		if (f(p->content, &tmp) * len < sizemin)
 		{
 			*min = tmp;
 			sizemin = sqrt(prod_scal(min->ray.dir, min->ray.dir));
@@ -27,7 +27,7 @@ static double	closest_inlst(t_list *lst, double (*f)(void *, t_impact *),
 	return (sizemin);
 }
 
-int	closest_intersect(t_ray r, t_scene *scene, t_impact *res)
+static int	closest_intersect(t_ray r, t_scene *scene, t_impact *res)
 {
 	double	sizemin;
 
@@ -58,6 +58,5 @@ t_colors	ray_color(t_ray r, t_scene *scene)
 	if (!closest_intersect(r, scene, &impact))
 		return (r.color);
 	r.color = prod_color(impact.ray.color, total_light(impact, scene));
-	//get color of shadow rays /Don't forget ambiant ligh/ fuse colors
 	return (r.color);
 }

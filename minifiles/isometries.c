@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_point		rotation(t_point vect, double angle, int axis)
+t_point	rotation(t_point vect, double angle, int axis)
 {
 	t_point	res;
 	double	co;
@@ -29,7 +29,7 @@ t_point		rotation(t_point vect, double angle, int axis)
 	return (res);
 }
 
-t_point		translation(t_point vect, double shift, int axis)
+t_point	translation(t_point vect, double shift, int axis)
 {
 	t_point	res;
 
@@ -44,9 +44,9 @@ t_point		translation(t_point vect, double shift, int axis)
 	return (res);
 }
 
-t_space		rotationfull(t_space base, double angle, int axis)
+t_space	rotationfull(t_space base, double angle, int axis)
 {
-	t_space res;
+	t_space	res;
 	double	co;
 	double	si;
 
