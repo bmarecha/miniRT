@@ -29,6 +29,7 @@ int	loop_till_eol(int fd, char **memory)
 	temp = malloc(BUFFER_SIZE + 1);
 	if (!temp)
 		return (-42);
+	readv = 1;
 	while (!gnl_strrchr(memory[fd], '\n'))
 	{
 		readv = read(fd, temp, BUFFER_SIZE);

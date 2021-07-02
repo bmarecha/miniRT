@@ -47,9 +47,9 @@ int	calculate(t_scene *scene)
 	i = 0;
 	img = *(scene->img);
 	space = scene->pov->base;
-	print_point(space.u);
-	print_point(space.v);
-	print_point(space.w);
+//	print_point(space.u);
+//	print_point(space.v);
+//	print_point(space.w);
 	while (i < scene->ysize * scene->xsize)
 	{
 		color = get_pix_color(i % scene->xsize, i / scene->xsize, scene, space);

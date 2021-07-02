@@ -90,8 +90,12 @@ void	window_run(t_scene *scene)
 void	window_destroy(t_scene *scene)
 {
 	if (scene->wink)
+	{
+		mlx_destroy_image(scene->mlink, scene->ilink);
 		mlx_destroy_window(scene->mlink, scene->wink);
-	mlx_destroy_display(scene->mlink);
+		mlx_destroy_display(scene->mlink);
+		free(scene->mlink);
+	}
 	scene_free(scene);
 }
 

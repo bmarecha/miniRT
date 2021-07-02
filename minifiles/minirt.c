@@ -70,17 +70,17 @@ int	read_line(char **infos, t_scene *scene)
 
 int	read_file(int fd, t_scene *scene)
 {
-	char	**line;
+	char	*line;
 	char	**infos;
 
-	line = malloc(1);
-	while (get_next_line(fd, line) == 1)
+//	line = malloc(sizeof(char *));
+	while (get_next_line(fd, &line) == 1)
 	{
-		infos = mini_split(*line, "\n\t\v ,");
-		free(*line);
+		infos = mini_split(line, "\n\t\v ,");
+		free(line);
 		if (read_line(infos, scene) == -1)
 		{
-			free(line);
+//			free(line);
 			close(fd);
 			return (-1);
 		}
@@ -116,7 +116,7 @@ int	main(int argc, char **argv)
 		window_start(scene, 1);
 	else
 		window_start(scene, 0);
-//	window_destroy(scene);
+	window_destroy(scene);
 //	free(scene);
 	return (0);
 }

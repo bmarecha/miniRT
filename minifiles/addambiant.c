@@ -99,6 +99,5 @@ int	add_colors(int r, int g, int b, t_colors *colors)
 	colors->r = r;
 	colors->g = g;
 	colors->b = b;
-	printf("%d,%d,%d\n", r, g, b);
 	return (0);
 }

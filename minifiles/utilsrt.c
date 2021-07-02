@@ -62,6 +62,10 @@ void	scene_free(t_scene *scene)
 	ft_lstclear(&(scene->squares), &free);
 	ft_lstclear(&(scene->cylindres), &free);
 	ft_lstclear(&(scene->triangles), &free);
+//	if (scene->ilink)
+//		free(scene->ilink);
+	if (scene->img)
+		free(scene->img);
 	free(scene);
 }
 
