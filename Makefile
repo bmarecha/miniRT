@@ -8,7 +8,6 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/splitrt.c \
 			minifiles/addambiant.c \
 			minifiles/utilsrt.c \
-			minifiles/ft_atof.c \
 			minifiles/windowmanager.c \
 			minifiles/drawing.c \
 			minifiles/vect.c \
@@ -18,7 +17,8 @@ SRCS	=	gnl/get_next_line.c \
 			minifiles/isometries.c \
 			minifiles/create_bmp.c \
 			minifiles/utilsray.c \
-			minifiles/utilsraycolor.c
+			minifiles/utilsraycolor.c \
+			minifiles/utilsraycolor2.c
 
 OBJS	=	${SRCS:.c=.o}
 

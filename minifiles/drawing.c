@@ -1,5 +1,20 @@
 #include "minirt.h"
 
+void	change_cam(t_camera **pov, t_list *cams)
+{
+	t_camera	*next;
+	static int	s_i = 0;
+
+	s_i++;
+	if (s_i >= ft_lstsize(cams))
+		s_i = 0;
+	next = (t_camera *)ft_lstget(cams, s_i);
+	if (next)
+	{
+		*pov = next;
+	}
+}
+
 void	assign_color(int color, char *pixel, int sizepix)
 {
 	int	i;
@@ -39,17 +54,14 @@ int	get_pix_color(int col, int row, t_scene *scene, t_space space)
 
 int	calculate(t_scene *scene)
 {
-	int	i;
-	int	color;
+	int		i;
+	int		color;
 	t_space	space;
 	t_image	img;
 
 	i = 0;
 	img = *(scene->img);
 	space = scene->pov->base;
-//	print_point(space.u);
-//	print_point(space.v);
-//	print_point(space.w);
 	while (i < scene->ysize * scene->xsize)
 	{
 		color = get_pix_color(i % scene->xsize, i / scene->xsize, scene, space);

@@ -17,7 +17,7 @@ int	add_sphere(char **i, t_list **lst)
 	t_sphere	*new;
 
 	if (!i[1] || !i[2] || !i[3] || !i[4] || !i[5] || !i[6]
-			|| !i[7] || i[8] || !lst)
+		|| !i[7] || i[8] || !lst)
 		return (-1);
 	new = malloc(sizeof(t_sphere));
 	if (!new)
@@ -47,7 +47,7 @@ int	add_plane(char **i, t_list **lst)
 	if (!new)
 		return (-1);
 	if ((u.x * u.x + u.y * u.y + u.z * u.z > 1) || add_colors(atoi(i[7]),
-		atoi(i[8]), atoi(i[9]), &(color)))
+			atoi(i[8]), atoi(i[9]), &(color)))
 	{
 		free(new);
 		return (-1);
@@ -101,7 +101,7 @@ int	add_cylindre(char **i, t_list **lst)
 		return (-1);
 	base = get_cam_space(norm);
 	new->height = ft_atof(i[8]);
-	create_plane(&copy, i + 1, base, c); 
+	create_plane(&copy, i + 1, base, c);
 	create_circle(&(new->bottom), copy, ft_atof(i[7]) / 2);
 	copy.start = add_v(copy.start, scale_v(copy.norm, new->height));
 	create_circle(&(new->top), copy, new->bottom.radius);

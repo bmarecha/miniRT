@@ -46,13 +46,6 @@ int	exit_prog(t_scene *scene)
 	return (1);
 }
 
-void	point_create(char *x, char *y, char *z, t_point *point)
-{
-	point->x = ft_atof(x);
-	point->y = ft_atof(y);
-	point->z = ft_atof(z);
-}
-
 void	scene_free(t_scene *scene)
 {
 	ft_lstclear(&(scene->cams), &free);
@@ -62,8 +55,6 @@ void	scene_free(t_scene *scene)
 	ft_lstclear(&(scene->squares), &free);
 	ft_lstclear(&(scene->cylindres), &free);
 	ft_lstclear(&(scene->triangles), &free);
-//	if (scene->ilink)
-//		free(scene->ilink);
 	if (scene->img)
 		free(scene->img);
 	free(scene);

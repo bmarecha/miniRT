@@ -45,7 +45,7 @@ t_colors	one_light(t_light l, t_impact i, t_scene *scene)
 	r.dir = less_v(l.place, r.origin);
 	if (light_block(r, scene))
 		return (res);
-	ori = prod_scal(r.dir, i.norm)/(normv(i.norm)*normv(r.dir));
+	ori = prod_scal(r.dir, i.norm) / (normv(i.norm) * normv(r.dir));
 	if (ori <= 0)
 		return (res);
 	else

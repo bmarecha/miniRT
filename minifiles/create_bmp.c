@@ -18,7 +18,7 @@ void	assign_int(char *octets, int nbr)
 
 void	header_bmp(char *data, t_scene *scene, int size)
 {
-	int	i;
+	int		i;
 	char	*img;
 
 	data[0] = TYPE_BITMAP1;
@@ -45,10 +45,10 @@ void	header_bmp(char *data, t_scene *scene, int size)
 
 int	export_bmp(char *filename, t_scene *scene)
 {
-	int		fd;
+	int				fd;
 	unsigned int	size;
 	unsigned int	i;
-	char		*data;
+	char			*data;
 
 	size = scene->xsize * scene->ysize * 4;
 	data = malloc((size + HEAD_SIZE) + 1);

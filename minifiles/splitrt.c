@@ -47,7 +47,7 @@ static char	*ft_strndup(char *src, int n)
 	return (cpy);
 }
 
-static int	ft_word_count(char *str, char *charset)
+static int	ft_word_count(char *str, char *charset, char ***to_malloc)
 {
 	int	i;
 	int	inside;
@@ -67,6 +67,8 @@ static int	ft_word_count(char *str, char *charset)
 		}
 		i++;
 	}
+	*to_malloc = (char **)malloc(sizeof(char *) * (words + 1));
+	(*to_malloc)[words] = 0;
 	return (words);
 }
 
@@ -79,8 +81,8 @@ char	**mini_split(char *str, char *charset)
 
 	if (!str)
 		return (NULL);
-	words = ft_word_count(str, charset);
-	split = (char **)malloc(sizeof(char *) * (words + 1));
+	split = NULL;
+	words = ft_word_count(str, charset, &split);
 	if (!split)
 		return (NULL);
 	i = 0;
@@ -96,6 +98,5 @@ char	**mini_split(char *str, char *charset)
 			split[i++] = ft_strndup(str + length[0], length[1] - length[0]);
 		length[0] = length[1];
 	}
-	split[i] = 0;
 	return (split);
 }

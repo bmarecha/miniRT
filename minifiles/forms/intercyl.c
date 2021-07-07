@@ -65,7 +65,7 @@ static double	solve_circle(t_circle c, t_ray r)
 	return (ir);
 }
 
-double		inter_cyl(void *p, t_impact *i)
+double	inter_cyl(void *p, t_impact *i)
 {
 	double		icircle;
 	double		icyl;

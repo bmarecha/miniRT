@@ -78,15 +78,14 @@ typedef struct s_scene
 ** Utils fonctions
 */
 
-float				ft_atof(char *str);
-char				**mini_split(char *str, char *charset);
+char			**mini_split(char *str, char *charset);
 int				ft_strcmp(char *a, char *b);
 int				array_length(t_camera **array);
-void				scene_free(t_scene *scene);
+void			scene_free(t_scene *scene);
 
-t_point				rotation(t_point vect, double angle, int axis);
-t_space				rotationfull(t_space base, double angle, int axis);
-t_point				translation(t_point vect, double shift, int axis);
+t_point			rotation(t_point vect, double angle, int axis);
+t_space			rotationfull(t_space base, double angle, int axis);
+t_point			translation(t_point vect, double shift, int axis);
 
 int				export_bmp(char *file, t_scene *scene);
 
@@ -99,19 +98,20 @@ int				add_light(char **infos, t_scene *scene);
 int				add_ambiantlight(char **infos, t_scene *scene);
 int				add_sizes(char **infos, t_scene *scene);
 int				add_colors(int r, int g, int b, t_colors *colors);
-t_space				get_cam_space(t_point direction);
+t_space			get_cam_space(t_point direction);
 
 /*
 ** Window Fonctions
 */
 
+void			change_cam(t_camera **pov, t_list *cams);
 int				window_start(t_scene *scene, int save);
-void				window_destroy(t_scene *scene);
+void			window_destroy(t_scene *scene);
 int				exit_prog(t_scene *scene);
 int				calculate(t_scene *scene);
 int				draw(t_scene *scene);
-t_colors			ray_color(t_ray r, t_scene *scene);
-t_colors			total_light(t_impact i, t_scene *scene);
-void				error_exit(int error);
+t_colors		ray_color(t_ray r, t_scene *scene);
+t_colors		total_light(t_impact i, t_scene *scene);
+void			error_exit(int error);
 
 #endif

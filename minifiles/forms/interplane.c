@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-double		solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
+double	solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
 {
 	double	ir;
 
@@ -13,7 +13,7 @@ double		solve_plan(t_plane *pl, t_ray *r, double *ori, t_point s)
 	return (ir);
 }
 
-double		inter_pla(void *p, t_impact *i)
+double	inter_pla(void *p, t_impact *i)
 {
 	t_point	starts;
 	double	ir;
@@ -33,7 +33,7 @@ double		inter_pla(void *p, t_impact *i)
 	return (ir);
 }
 
-double		inter_square(void *p, t_impact *i)
+double	inter_square(void *p, t_impact *i)
 {
 	t_square	*s;
 	double		ori;
@@ -69,14 +69,14 @@ static int	is_in_tria(t_triangle t, t_point start, t_point impact)
 	u = t.inv_u;
 	v = t.inv_v;
 	z = less_v(impact, start);
-	iu = prod_scal(z,u);
-	iv = prod_scal(z,v);
+	iu = prod_scal(z, u);
+	iv = prod_scal(z, v);
 	if (iu < 0 || iv < 0 || iv + iu > 1)
 		return (0);
 	return (1);
 }
 
-double		inter_triang(void *p, t_impact *i)
+double	inter_triang(void *p, t_impact *i)
 {
 	t_point		start;
 	t_triangle	*t;
@@ -88,12 +88,12 @@ double		inter_triang(void *p, t_impact *i)
 	t = (t_triangle *)p;
 	start = less_v(t->plane.start, r->origin);
 	ir = solve_plan(&(t->plane), r, &ori, start);
-	if(ir == INFINITY)
+	if (ir == INFINITY)
 		return (INFINITY);
 	r->dir = scale_v(r->dir, ir);
 	if (!is_in_tria(*t, start, r->dir))
 		return (INFINITY);
 	r->color = t->plane.color;
 	i->norm = t->plane.norm;
-	return ir;
+	return (ir);
 }

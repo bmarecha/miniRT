@@ -73,14 +73,12 @@ int	read_file(int fd, t_scene *scene)
 	char	*line;
 	char	**infos;
 
-//	line = malloc(sizeof(char *));
 	while (get_next_line(fd, &line) == 1)
 	{
 		infos = mini_split(line, "\n\t\v ,");
 		free(line);
 		if (read_line(infos, scene) == -1)
 		{
-//			free(line);
 			close(fd);
 			return (-1);
 		}
@@ -117,6 +115,5 @@ int	main(int argc, char **argv)
 	else
 		window_start(scene, 0);
 	window_destroy(scene);
-//	free(scene);
 	return (0);
 }

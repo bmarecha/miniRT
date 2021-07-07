@@ -7,10 +7,10 @@ void	print_point(t_point p)
 
 double	normv(t_point u)
 {
-	return (sqrt(prod_scal(u,u)));
+	return (sqrt(prod_scal(u, u)));
 }
 
-t_point normalize(t_point u)
+t_point	normalize(t_point u)
 {
 	double	norm;
 	t_point	res;
@@ -30,7 +30,7 @@ t_space	get_cam_space(t_point direction)
 	if (res.u.x != 0 || res.u.y != 0)
 	{
 		res.v.x = res.u.y;
-		res.v.y = -res.u.x;	
+		res.v.y = -res.u.x;
 	}
 	else
 	{

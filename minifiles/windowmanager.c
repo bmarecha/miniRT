@@ -26,19 +26,21 @@
 #define RIGHT_KEY 65363
 #define CAM_KEY 99
 
-void	change_cam(t_camera **pov, t_list *cams)
+int	keypress_2(int keycode, t_scene *scene, t_camera *next)
 {
-	t_camera	*next;
-	static int	i = 0;
-
-	i++;
-	if (i >= ft_lstsize(cams))
-		i = 0;
-	next = (t_camera *)ft_lstget(cams, i);
-	if (next)
-	{
-		*pov = next;
-	}
+	if (keycode == UP_KEY)
+		next->base = rotationfull(next->base, M_PI / 10.0, 2);
+	else if (keycode == LEFT_KEY)
+		next->base = rotationfull(next->base, M_PI / -10.0, 1);
+	else if (keycode == RIGHT_KEY)
+		next->base = rotationfull(next->base, M_PI / 10.0, 1);
+	else if (keycode == DOWN_KEY)
+		next->base = rotationfull(next->base, M_PI / -10.0, 2);
+	else if (keycode == CAM_KEY)
+		change_cam(&(scene->pov), scene->cams);
+	else
+		return (0);
+	return (1);
 }
 
 int	win_keypress(int keycode, void *param)
@@ -62,29 +64,11 @@ int	win_keypress(int keycode, void *param)
 		next->place = translation(next->place, -1.0, 2);
 	else if (keycode == E_KEY)
 		next->place = translation(next->place, 1.0, 2);
-	else if (keycode == UP_KEY)
-		next->base = rotationfull(next->base, M_PI / 10.0, 2);
-	else if (keycode == LEFT_KEY)
-		next->base = rotationfull(next->base, M_PI / -10.0, 1);
-	else if (keycode == RIGHT_KEY)
-		next->base = rotationfull(next->base, M_PI / 10.0, 1);
-	else if (keycode == DOWN_KEY)
-		next->base = rotationfull(next->base, M_PI / -10.0, 2);
-	else if (keycode == CAM_KEY)
-		change_cam(&(scene->pov), scene->cams);
-	else
+	else if (!keypress_2(keycode, scene, next))
 		return (0);
 	calculate(scene);
 	draw(scene);
 	return (0);
-}
-
-void	window_run(t_scene *scene)
-{	
-	mlx_loop_hook(scene->wink, draw, scene);
-	mlx_key_hook(scene->wink, win_keypress, scene);
-	mlx_hook(scene->wink, 33, 0, exit_prog, scene);
-	mlx_loop(scene->mlink);
 }
 
 void	window_destroy(t_scene *scene)
@@ -98,33 +82,43 @@ void	window_destroy(t_scene *scene)
 	scene_free(scene);
 }
 
-int	window_start(t_scene *scene, int save)
+int	window_start2(t_scene *scene, int save)
 {
-	int	display_res[2];
-
-	scene->mlink = mlx_init();
-	mlx_get_screen_size(scene->mlink, display_res, display_res + 1);
-	if (display_res[0] < scene->xsize)
-		scene->xsize = display_res[0];
-	if (display_res[1] < scene->ysize)
-		scene->ysize = display_res[1];
-	if (!scene->mlink)
-		return (EXIT_FAILURE);
-	scene->wink = mlx_new_window(scene->mlink,
-		scene->xsize, scene->ysize, "RT");
-	scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize);
-	if (!scene->wink || !scene->ilink)
-		return (EXIT_FAILURE);
 	scene->img = malloc(sizeof(t_image));
 	if (!scene->img)
 		return (-1);
 	mlx_clear_window(scene->mlink, scene->wink);
 	scene->img->data = mlx_get_data_addr(scene->ilink, &(scene->img->sizepix),
-		&(scene->img->sizeline), &(scene->img->endian));
+			&(scene->img->sizeline), &(scene->img->endian));
 	calculate(scene);
 	if (save)
 		return (export_bmp("miniRT_save.bmp", scene));
 	draw(scene);
-	window_run(scene);
-	return (EXIT_SUCCESS);	
+	mlx_loop_hook(scene->wink, draw, scene);
+	mlx_key_hook(scene->wink, win_keypress, scene);
+	mlx_hook(scene->wink, 33, 0, exit_prog, scene);
+	mlx_loop(scene->mlink);
+	return (EXIT_SUCCESS);
+}
+
+int	window_start(t_scene *scene, int save)
+{
+	int	display_res[2];
+
+	scene->mlink = mlx_init();
+	if (!scene->mlink)
+		return (EXIT_FAILURE);
+	mlx_get_screen_size(scene->mlink, display_res, display_res + 1);
+	if (display_res[0] < scene->xsize)
+		scene->xsize = display_res[0];
+	if (display_res[1] < scene->ysize)
+		scene->ysize = display_res[1];
+	scene->wink = mlx_new_window(scene->mlink,
+			scene->xsize, scene->ysize, "RT");
+	scene->ilink = mlx_new_image(scene->mlink, scene->xsize, scene->ysize);
+	if (!scene->wink || !scene->ilink)
+		return (EXIT_FAILURE);
+	if (window_start2(scene, save) == -1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

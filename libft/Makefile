@@ -19,6 +19,7 @@ SRCS	=	ft_toupper.c \
 		ft_strlcat.c \
 		ft_strnstr.c \
 		ft_atoi.c \
+		ft_atof.c \
 		ft_strlen.c \
 		ft_isalpha.c \
 		ft_isdigit.c \
