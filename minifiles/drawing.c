@@ -68,15 +68,13 @@ int	calculate(t_scene *scene)
 		assign_color(color, img.data + i * 4, img.sizepix);
 		i += 1;
 	}
-	scene->changed = 1;
 	return (1);
 }
 
 int	draw(t_scene *scene)
 {
-	if (!scene->changed || !scene->ilink)
+	if (!scene->ilink)
 		return (1);
 	mlx_put_image_to_window(scene->mlink, scene->wink, scene->ilink, 0, 0);
-	scene->changed = 0;
 	return (1);
 }

@@ -41,6 +41,7 @@ SRCS	=	ft_toupper.c \
 		ft_putendl_fd.c \
 		ft_strjoin.c \
 		ft_itoa.c \
+		ft_str_end.c \
 		ft_strmapi.c
 
 SRCS_BONUS = 	ft_lstnew.c \

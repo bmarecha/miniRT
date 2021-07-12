@@ -73,5 +73,6 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 void			*ft_lstget(t_list *lst, int i);
+int				ft_str_end(const char *str, const char *end);
 
 #endif

@@ -64,12 +64,14 @@ void	error_exit(int error)
 {
 	write(STDERR_FILENO, "Error\n", 6);
 	if (error == -2)
-		write(STDERR_FILENO, "Map manquante\n", 14);
+		write(STDERR_FILENO, "Mauvais nombre d'arguments\n", 27);
 	else if (error == -3)
 		write(STDERR_FILENO, "Erreur de map\n", 14);
 	else if (error == -4)
 		write(STDERR_FILENO, "Erreur d'allocation\n", 20);
 	else if (error == -5)
 		write(STDERR_FILENO, "Erreur avec le fichier .bmp\n", 28);
+	else if (error == -6)
+		write(STDERR_FILENO, "Ceci n'est pas un fichier .rt\n", 30);
 	exit(error);
 }

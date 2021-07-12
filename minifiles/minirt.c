@@ -99,11 +99,13 @@ int	main(int argc, char **argv)
 {
 	t_scene	*scene;
 
-	if (argc <= 1)
+	if (argc <= 1 || argc > 3)
 		error_exit(-2);
+	if (!ft_str_end(argv[1], ".rt"))
+		error_exit(-6);
 	scene = malloc(sizeof(t_scene));
 	if (!scene)
-		return (-1);
+		error_exit(-4);
 	ft_bzero(scene, sizeof(*scene));
 	if (read_file(open(argv[1], O_RDONLY), scene) == -1)
 	{
